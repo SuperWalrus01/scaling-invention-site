@@ -13,6 +13,7 @@ vite.config.js
 tailwind.config.js
 postcss.config.js
 favicon-32x32.png
+deploy.sh
 
 # macOS
 .DS_Store
