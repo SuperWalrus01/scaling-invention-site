@@ -1,8 +1,15 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Award, Info } from 'lucide-react';
-import { useState, lazy, Suspense } from 'react';
+import { ExternalLink, Award, Info, Github } from 'lucide-react';
+import { lazy, Suspense } from 'react';
 import Section from './Section';
-import Modal from './Modal';
+import {
+  Modal,
+  ModalBody,
+  ModalClose,
+  ModalContent,
+  ModalFooter,
+  ModalTrigger,
+} from '@/components/ui/animated-modal';
 
 const InfiniticsVisualizer = lazy(() => import('./InfiniticsVisualizer'));
 const DRWPipelineVisualizer = lazy(() => import('./DRWPipelineVisualizer'));
@@ -216,118 +223,123 @@ const projects = [
   },
 ];
 
-export default function Projects() {
-  const [showGithubModal, setShowGithubModal] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
+const visualizerMap = {
+  'bayesquiz-sim': BayesQuizSimulator,
+  'infinitics-8': InfiniticsVisualizer,
+  'drw-crypto': DRWPipelineVisualizer,
+  'diabetes-benchmark': DiabetesBenchmarkDashboard,
+};
 
+export default function Projects() {
   return (
     <Section className="max-w-6xl mx-auto px-4">
       <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8">Projects</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        {projects.map((project, index) => (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-lg hover:shadow-2xl transition-shadow relative overflow-hidden group"
-          >
-            {project.award && (
-              <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
-                <div className="p-1.5 sm:p-2 bg-yellow-400 rounded-full" aria-hidden="true">
-                  <Award className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-900" />
+        {projects.map((project, index) => {
+          const Visualizer = visualizerMap[project.id];
+          return (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-lg hover:shadow-2xl transition-shadow relative overflow-hidden group"
+            >
+              {project.award && (
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
+                  <div className="p-1.5 sm:p-2 bg-yellow-400 rounded-full" aria-hidden="true">
+                    <Award className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-900" />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            <h3 className="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2.5 pr-10 sm:pr-12">{project.title}</h3>
-            <p className="text-gray-600 text-sm mb-3 leading-relaxed text-justify">
-              {project.description}
-            </p>
-
-            {project.impact && (
-              <p className="text-[0.7rem] sm:text-xs text-gray-500 mb-3">
-                <span className="font-semibold text-gray-700">Impact: </span>
-                {project.impact}
+              <h3 className="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2.5 pr-10 sm:pr-12">{project.title}</h3>
+              <p className="text-gray-600 text-sm mb-3 leading-relaxed text-justify">
+                {project.description}
               </p>
-            )}
 
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tags.map((tag, tagIndex) => (
-                <span
-                  key={tagIndex}
-                  className="px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-medium"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+              {project.impact && (
+                <p className="text-[0.7rem] sm:text-xs text-gray-500 mb-3">
+                  <span className="font-semibold text-gray-700">Impact: </span>
+                  {project.impact}
+                </p>
+              )}
 
-            <div className="flex gap-2">
-              <motion.button
-                onClick={() => setSelectedProject(project)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="button"
-                className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              >
-                <Info className="w-4 h-4" aria-hidden="true" />
-                <span>More Details</span>
-              </motion.button>
-              
-              <motion.button
-                onClick={() => setShowGithubModal(true)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="button"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm font-medium group-hover:bg-primary-600 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
-                aria-label="GitHub profile coming soon"
-              >
-                <span>GitHub</span>
-                <ExternalLink className="w-4 h-4" aria-hidden="true" />
-              </motion.button>
-            </div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag, tagIndex) => (
+                  <span
+                    key={tagIndex}
+                    className="px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-medium"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-            {/* Gradient overlay on hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/0 to-primary-600/0 group-hover:from-primary-500/5 group-hover:to-primary-600/5 transition-all duration-300 rounded-3xl pointer-events-none" />
-          </motion.div>
-        ))}
+              <div className="flex gap-2">
+                {/* More Details modal */}
+                <Modal>
+                  <ModalTrigger className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+                    <Info className="w-4 h-4" aria-hidden="true" />
+                    More Details
+                  </ModalTrigger>
+                  <ModalBody className="md:max-w-[65%] max-h-[85%]">
+                    <ModalContent className="overflow-y-auto">
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">{project.title}</h3>
+                      <div className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                        {project.details}
+                      </div>
+                      {Visualizer && (
+                        <div className="mt-6">
+                          <Suspense fallback={null}>
+                            <Visualizer />
+                          </Suspense>
+                        </div>
+                      )}
+                    </ModalContent>
+                    <ModalFooter>
+                      <ModalClose className="px-4 py-2 bg-gray-200 text-black dark:bg-neutral-800 dark:text-white rounded-md text-sm hover:bg-gray-300 transition-colors w-28">
+                        Close
+                      </ModalClose>
+                    </ModalFooter>
+                  </ModalBody>
+                </Modal>
+
+                {/* GitHub modal */}
+                <Modal>
+                  <ModalTrigger className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">
+                    GitHub
+                    <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                  </ModalTrigger>
+                  <ModalBody>
+                    <ModalContent>
+                      <div className="flex flex-col items-center gap-4 text-center">
+                        <div className="w-14 h-14 bg-gray-900 rounded-full flex items-center justify-center shrink-0">
+                          <Github className="w-7 h-7 text-white" />
+                        </div>
+                        <h4 className="text-xl font-bold text-gray-900 dark:text-neutral-100">GitHub</h4>
+                        <p className="text-sm text-gray-600 dark:text-neutral-400 max-w-xs">
+                          My GitHub profile is currently being set up. Check back soon to see my latest projects and contributions!
+                        </p>
+                      </div>
+                    </ModalContent>
+                    <ModalFooter>
+                      <ModalClose className="px-4 py-2 bg-gray-200 text-black dark:bg-neutral-800 dark:text-white rounded-md text-sm hover:bg-gray-300 transition-colors w-28">
+                        Close
+                      </ModalClose>
+                    </ModalFooter>
+                  </ModalBody>
+                </Modal>
+              </div>
+
+              {/* Gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/0 to-primary-600/0 group-hover:from-primary-500/5 group-hover:to-primary-600/5 transition-all duration-300 rounded-3xl pointer-events-none" />
+            </motion.div>
+          );
+        })}
       </div>
-
-      {/* Project Details Modal */}
-      {selectedProject && (
-        <Modal
-          isOpen={!!selectedProject}
-          onClose={() => setSelectedProject(null)}
-          title={selectedProject.title}
-          message={selectedProject.details}
-        >
-          <Suspense fallback={null}>
-            {selectedProject.id === 'bayesquiz-sim' && (
-              <BayesQuizSimulator />
-            )}
-            {selectedProject.id === 'infinitics-8' && (
-              <InfiniticsVisualizer />
-            )}
-            {selectedProject.id === 'drw-crypto' && (
-              <DRWPipelineVisualizer />
-            )}
-            {selectedProject.id === 'diabetes-benchmark' && (
-              <DiabetesBenchmarkDashboard />
-            )}
-          </Suspense>
-        </Modal>
-      )}
-
-      {/* GitHub Modal */}
-      <Modal
-        isOpen={showGithubModal}
-        onClose={() => setShowGithubModal(false)}
-        title="Coming Soon"
-        message="My GitHub profile is currently being set up. Check back soon to see my latest projects and contributions!"
-      />
     </Section>
   );
 }

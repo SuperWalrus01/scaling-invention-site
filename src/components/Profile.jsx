@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Github, Linkedin, MapPin } from 'lucide-react';
 import Section from './Section';
 import {
@@ -10,36 +9,14 @@ import {
   ModalTrigger,
 } from '@/components/ui/animated-modal';
 import { ContentPreview } from '@/components/ui/content-preview';
-import { CanvasText } from '@/components/ui/canvas-text';
 
 export default function Profile({ setActiveTab }) {
 
   return (
     <Section className="text-center max-w-3xl mx-auto">
-      <motion.div
-        initial={{ scale: 0.9 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 px-4">
-          <CanvasText
-            text="Keenan Jusak"
-            backgroundClassName="bg-primary-600"
-            colors={[
-              'rgba(2, 132, 199, 1)',
-              'rgba(14, 165, 233, 0.9)',
-              'rgba(56, 189, 248, 0.75)',
-              'rgba(125, 211, 252, 0.55)',
-              'rgba(186, 230, 253, 0.35)',
-              'rgba(2, 132, 199, 0.6)',
-              'rgba(14, 165, 233, 0.4)',
-              'rgba(56, 189, 248, 0.25)',
-            ]}
-            lineGap={6}
-            lineWidth={1.5}
-            curveIntensity={50}
-            animationDuration={18}
-          />
+      <div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent px-4">
+          Keenan Jusak
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 px-4">
           Mathematics & Statistics student who designs stochastic models and
@@ -235,11 +212,9 @@ export default function Profile({ setActiveTab }) {
                   </div>
                 }
               >
-                <motion.button
+                <button
                   type="button"
                   onClick={() => setActiveTab && setActiveTab('projects')}
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
                   className="text-left rounded-2xl border border-primary-100 bg-white/80 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
                 >
                   <p className="text-[0.65rem] sm:text-[0.7rem] uppercase tracking-wide text-primary-600 font-semibold mb-1">
@@ -251,7 +226,7 @@ export default function Profile({ setActiveTab }) {
                   <p className="text-[0.7rem] sm:text-xs text-gray-500 mt-1">
                     CTMC-based pricing + scholarship offer
                   </p>
-                </motion.button>
+                </button>
               </ContentPreview>
 
               <ContentPreview
@@ -279,11 +254,9 @@ export default function Profile({ setActiveTab }) {
                   </div>
                 }
               >
-                <motion.button
+                <button
                   type="button"
                   onClick={() => setActiveTab && setActiveTab('projects')}
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
                   className="text-left rounded-2xl border border-primary-100 bg-white/80 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
                 >
                   <p className="text-[0.65rem] sm:text-[0.7rem] uppercase tracking-wide text-primary-600 font-semibold mb-1">
@@ -295,7 +268,7 @@ export default function Profile({ setActiveTab }) {
                   <p className="text-[0.7rem] sm:text-xs text-gray-500 mt-1">
                     Bayesian classroom tool for teachers
                   </p>
-                </motion.button>
+                </button>
               </ContentPreview>
 
               <ContentPreview
@@ -323,11 +296,9 @@ export default function Profile({ setActiveTab }) {
                   </div>
                 }
               >
-                <motion.button
+                <button
                   type="button"
                   onClick={() => setActiveTab && setActiveTab('leadership')}
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
                   className="text-left rounded-2xl border border-primary-100 bg-white/80 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
                 >
                   <p className="text-[0.65rem] sm:text-[0.7rem] uppercase tracking-wide text-primary-600 font-semibold mb-1">
@@ -339,12 +310,12 @@ export default function Profile({ setActiveTab }) {
                   <p className="text-[0.7rem] sm:text-xs text-gray-500 mt-1">
                     Supporting student societies with data
                   </p>
-                </motion.button>
+                </button>
               </ContentPreview>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
     </Section>
   );

@@ -1,5 +1,4 @@
-import { useState, useMemo, useEffect, lazy, Suspense } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useMemo, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
 
@@ -11,18 +10,6 @@ const Leadership = lazy(() => import('./components/Leadership'));
 
 function App() {
   const [activeTab, setActiveTab] = useState('profile');
-
-
-  // Preload tab content components in the background so switching tabs feels instant
-  useEffect(() => {
-    // Fire and forget; React.lazy will reuse these loaded chunks
-    import('./components/Education');
-    import('./components/Projects');
-    import('./components/Skills');
-    import('./components/Leadership');
-  }, []);
-
-
 
   const renderContent = useMemo(() => {
     switch (activeTab) {
@@ -48,11 +35,7 @@ function App() {
       <main className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12">
         <div className="container mx-auto">
           <Suspense fallback={null}>
-            <AnimatePresence mode="wait">
-              <div key={activeTab}>
-                {renderContent}
-              </div>
-            </AnimatePresence>
+            {renderContent}
           </Suspense>
 
           <div className="mt-10 mb-6 text-xs sm:text-sm">
@@ -75,11 +58,12 @@ function App() {
       {/* Decorative gradient blobs + stats-style grid (home only) */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
         {activeTab === 'profile' && (
+          <>
             <div className="absolute inset-0 stats-grid-bg opacity-40 sm:opacity-50" />
+            <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-sky-200 rounded-full filter blur-2xl opacity-20 animate-blob will-change-transform" />
+            <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-sky-200 rounded-full filter blur-2xl opacity-20 animate-blob animation-delay-2000 will-change-transform hidden sm:block" />
+          </>
         )}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob will-change-transform" />
-        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-2000 will-change-transform" />
-        <div className="absolute bottom-1/4 left-1/2 w-96 h-96 bg-sky-200 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-4000 will-change-transform" />
       </div>
     </div>
   );
