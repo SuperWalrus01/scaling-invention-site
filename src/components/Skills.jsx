@@ -1,15 +1,14 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Brain, BarChart3, Users, Code, Database } from 'lucide-react';
+import { Brain, BarChart3, Users, Code, Database, Globe } from 'lucide-react';
 import Section from './Section';
+import { staggerList, riseIn, headingIn } from '@/lib/motion';
 
 const skillClusters = [
   {
     id: 'math-stats',
     label: 'Math & Stats',
     icon: Brain,
-    color: 'bg-purple-600',
-    badgeColor: 'bg-purple-100 text-purple-700',
     skills: ['CTMC', 'Stochastic Modelling', 'Actuarial-Style Modelling'],
     summary:
       'Core quantitative toolkit for modelling uncertainty, pricing risk, and designing stochastic systems.',
@@ -22,8 +21,6 @@ const skillClusters = [
     id: 'programming',
     label: 'Programming',
     icon: Code,
-    color: 'bg-sky-600',
-    badgeColor: 'bg-sky-100 text-sky-700',
     skills: ['Python', 'R', 'JavaScript', 'MATLAB', 'VBA', 'HTML', 'CSS'],
     summary:
       'Practical coding skills for building data pipelines, prototypes, and visual interfaces.',
@@ -36,8 +33,6 @@ const skillClusters = [
     id: 'data-science',
     label: 'Data Science & ML',
     icon: BarChart3,
-    color: 'bg-indigo-600',
-    badgeColor: 'bg-indigo-100 text-indigo-700',
     skills: ['Supervised Learning', 'EDA', 'PCA', 'LightGBM', 'XGBoost'],
     summary:
       'End‑to‑end workflow from cleaning data to deploying competitive predictive models.',
@@ -50,8 +45,6 @@ const skillClusters = [
     id: 'tools',
     label: 'Tools & Technologies',
     icon: Database,
-    color: 'bg-teal-600',
-    badgeColor: 'bg-teal-100 text-teal-700',
     skills: ['SQL', 'OpenAI API', 'Supabase', 'Firebase', 'cPanel', 'LaTeX', 'PowerPoint'],
     summary:
       'Ecosystem of tools for storage, deployment, automation, and clear technical communication.',
@@ -64,8 +57,6 @@ const skillClusters = [
     id: 'leadership',
     label: 'Leadership',
     icon: Users,
-    color: 'bg-emerald-600',
-    badgeColor: 'bg-emerald-100 text-emerald-700',
     skills: ['Community Founding', 'Treasury Management', 'Event Planning'],
     summary:
       'Experience turning ideas into organisations, projects, and events with real stakeholders.',
@@ -77,9 +68,7 @@ const skillClusters = [
   {
     id: 'languages',
     label: 'Languages',
-    icon: Users,
-    color: 'bg-amber-600',
-    badgeColor: 'bg-amber-100 text-amber-700',
+    icon: Globe,
     skills: ['Indonesian (native)', 'English (fluent, IELTS 8.0)'],
     summary:
       'Bilingual communication for working in Indonesian and international environments.',
@@ -100,18 +89,28 @@ export default function Skills() {
 
   return (
     <Section className="max-w-6xl mx-auto px-4">
-      <div className="flex flex-col gap-4 sm:gap-3 mb-6 sm:mb-8">
+      <motion.div
+        variants={headingIn}
+        initial="hidden"
+        animate="show"
+        className="flex flex-col gap-4 sm:gap-3 mb-6 sm:mb-8"
+      >
         <h2 className="text-3xl sm:text-4xl font-bold">Skills</h2>
         <p className="text-sm sm:text-base text-gray-600 max-w-2xl">
-          A quick map of the tools I actually use in projects and competitions –
+          A quick map of the tools I actually use in projects and competitions,
           from the maths that underpins my models to the code and leadership that
           turns them into something real.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-5 sm:gap-6 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-5 sm:gap-6 items-start">
         {/* Left: Cluster selector */}
-        <div className="space-y-3 sm:space-y-4">
+        <motion.div
+          className="space-y-3 sm:space-y-4"
+          variants={staggerList}
+          initial="hidden"
+          animate="show"
+        >
           {skillClusters.map((cluster) => {
             const Icon = cluster.icon;
             const isActive = cluster.id === activeId;
@@ -119,6 +118,7 @@ export default function Skills() {
               <motion.button
                 key={cluster.id}
                 type="button"
+                variants={riseIn}
                 onClick={() => setActiveId(cluster.id)}
                 whileHover={{ y: -2, scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
@@ -130,7 +130,9 @@ export default function Skills() {
                   }`}
               >
                 <div
-                  className={`flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl ${cluster.color} text-white flex-shrink-0`}
+                  className={`flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex-shrink-0 transition-colors ${
+                    isActive ? 'bg-primary-700 text-white' : 'bg-primary-50 text-primary-700'
+                  }`}
                 >
                   <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
@@ -138,14 +140,14 @@ export default function Skills() {
                   <p className="text-sm sm:text-base font-semibold text-gray-900">
                     {cluster.label}
                   </p>
-                  <p className="text-xs sm:text-[0.8rem] text-gray-600 line-clamp-2">
-                    {cluster.summary}
+                  <p className="text-xs sm:text-[0.8rem] text-gray-500">
+                    {cluster.skills.length} {cluster.skills.length === 1 ? 'tool' : 'tools'}
                   </p>
                 </div>
               </motion.button>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Right: Active cluster detail */}
         <motion.div
@@ -153,7 +155,7 @@ export default function Skills() {
           initial={{ opacity: 0, y: 12, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ type: 'spring', stiffness: 140, damping: 18 }}
-          className="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-7 shadow-lg flex flex-col gap-4 sm:gap-5"
+          className="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-7 shadow-lg flex flex-col gap-4 sm:gap-5 lg:sticky lg:top-28"
         >
           <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
             <div>
@@ -179,7 +181,7 @@ export default function Skills() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ delay: 0.05 * index }}
                   whileHover={{ scale: 1.05, y: -1 }}
-                  className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium ${activeCluster.badgeColor} shadow-sm`}
+                  className="px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium bg-primary-50 text-primary-700 shadow-sm"
                 >
                   {skill}
                 </motion.span>

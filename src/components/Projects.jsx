@@ -1,20 +1,56 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Award, Info, Github } from 'lucide-react';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import Section from './Section';
+import ProjectPreview from './ProjectPreview';
+import { staggerList, riseIn, headingIn } from '@/lib/motion';
 import {
   Modal,
   ModalBody,
   ModalClose,
   ModalContent,
+  ModalDeferred,
   ModalFooter,
   ModalTrigger,
 } from '@/components/ui/animated-modal';
 
-const InfiniticsVisualizer = lazy(() => import('./InfiniticsVisualizer'));
-const DRWPipelineVisualizer = lazy(() => import('./DRWPipelineVisualizer'));
-const DiabetesBenchmarkDashboard = lazy(() => import('./DiabetesBenchmarkDashboard'));
-const BayesQuizSimulator = lazy(() => import('./BayesQuizSimulator'));
+// Loaders are kept separate from the lazy components so a hover or press can
+// warm the chunk (fetch + evaluate) before the modal ever opens.
+const visualizerLoaders = {
+  'bayesquiz-sim': () => import('./BayesQuizSimulator'),
+  'infinitics-8': () => import('./InfiniticsVisualizer'),
+  'drw-crypto': () => import('./DRWPipelineVisualizer'),
+  'diabetes-benchmark': () => import('./DiabetesBenchmarkDashboard'),
+};
+
+const visualizerMap = Object.fromEntries(
+  Object.entries(visualizerLoaders).map(([id, load]) => [id, lazy(load)]),
+);
+
+const warmVisualizer = (id) => {
+  const load = visualizerLoaders[id];
+  if (load) load().catch(() => {});
+};
+
+// Phones have no hover, so a tap gives only ~90ms of warning: not enough for
+// the chart bundle to evaluate before the modal wants it, which showed up as
+// ~218ms of blocked main thread on a throttled device. Warming during idle
+// moves that work off the interaction path entirely.
+const warmAllVisualizers = () => {
+  const connection = navigator.connection;
+  if (connection && (connection.saveData || /2g/.test(connection.effectiveType ?? ''))) {
+    return undefined;
+  }
+
+  const run = () => Object.keys(visualizerLoaders).forEach(warmVisualizer);
+
+  if (typeof window.requestIdleCallback === 'function') {
+    const handle = window.requestIdleCallback(run, { timeout: 2500 });
+    return () => window.cancelIdleCallback(handle);
+  }
+  const timer = window.setTimeout(run, 1200);
+  return () => window.clearTimeout(timer);
+};
 
 const projects = [
   {
@@ -64,7 +100,7 @@ const projects = [
   {
     id: 'infinitics-8',
     title: 'Infinitics 8 Competition - Cyber Insurance Pricing',
-    description: '1st Place. Modelled computer transitions (Susceptible, Infected, Quarantined, Damaged) as CTMC for cyber insurance pricing using stochastic modeling and Monte Carlo simulation. Offered scholarship to study actuarial mathematics at Universitas Pelita Harapan (Indonesia).',
+    description: '1st Place. Modelled computer transitions (Susceptible, Infected, Quarantined, Damaged) as CTMC for cyber insurance pricing using stochastic modelling and Monte Carlo simulation. Offered scholarship to study actuarial mathematics at Universitas Pelita Harapan (Indonesia).',
     impact: '1st place plus scholarship offer to study actuarial mathematics.',
     tags: ['Winner', 'Stochastic Modelling', 'Actuarial'],
     github: '#',
@@ -120,7 +156,7 @@ const projects = [
   {
     id: 'diabetes-benchmark',
     title: 'Diabetes Prediction',
-    description: 'Review of supervised learning algorithms for predicting diabetes.',
+    description: 'Benchmarking study of supervised learning algorithms for predicting diabetes onset from clinical measurements. Compared logistic regression, trees, random forests, SVMs, and gradient boosting under cross-validation, then used feature importance to identify the strongest risk drivers.',
     impact: 'Benchmarked multiple model families and clarified trade-offs between accuracy and interpretability.',
     tags: ['Machine Learning', 'Python'],
     github: '#',
@@ -174,7 +210,7 @@ const projects = [
   {
     id: 'drw-crypto',
     title: 'DRW Crypto Forecasting Competition',
-    description: 'EDA using PCA, feature selection, and forecasting with LightGBM/XGBoost.',
+    description: 'Short-horizon crypto price forecasting on a noisy, high-dimensional feature set. Used PCA and feature selection to cut dimensionality, engineered momentum and mean-reversion signals, and tuned LightGBM and XGBoost models against regime shifts and heavy tails.',
     impact: 'Built a resilient forecasting pipeline for noisy crypto time series using gradient-boosted models.',
     tags: ['Forecasting', 'Competition'],
     github: '#',
@@ -223,40 +259,58 @@ const projects = [
   },
 ];
 
-const visualizerMap = {
-  'bayesquiz-sim': BayesQuizSimulator,
-  'infinitics-8': InfiniticsVisualizer,
-  'drw-crypto': DRWPipelineVisualizer,
-  'diabetes-benchmark': DiabetesBenchmarkDashboard,
-};
+function VisualizerSkeleton() {
+  return (
+    <div
+      className="h-56 sm:h-64 rounded-2xl bg-gray-100 animate-pulse"
+      aria-hidden="true"
+    />
+  );
+}
 
 export default function Projects() {
+  useEffect(warmAllVisualizers, []);
+
   return (
     <Section className="max-w-6xl mx-auto px-4">
-      <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8">Projects</h2>
+      <motion.h2
+        variants={headingIn}
+        initial="hidden"
+        animate="show"
+        className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8"
+      >
+        Projects
+      </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        {projects.map((project, index) => {
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
+        variants={staggerList}
+        initial="hidden"
+        animate="show"
+      >
+        {projects.map((project) => {
           const Visualizer = visualizerMap[project.id];
           return (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              variants={riseIn}
               whileHover={{ y: -8, scale: 1.02 }}
               className="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-lg hover:shadow-2xl transition-shadow relative overflow-hidden group"
             >
-              {project.award && (
-                <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
-                  <div className="p-1.5 sm:p-2 bg-yellow-400 rounded-full" aria-hidden="true">
-                    <Award className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-900" />
-                  </div>
-                </div>
-              )}
+              <div className="-mx-5 sm:-mx-6 -mt-5 sm:-mt-6 mb-4 rounded-t-2xl sm:rounded-t-3xl overflow-hidden bg-gradient-to-b from-primary-50/70 to-transparent">
+                <ProjectPreview id={project.id} />
+              </div>
 
-              <h3 className="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2.5 pr-10 sm:pr-12">{project.title}</h3>
-              <p className="text-gray-600 text-sm mb-3 leading-relaxed text-justify">
+              <div className="flex items-start justify-between gap-3 mb-1.5 sm:mb-2.5">
+                <h3 className="text-lg sm:text-xl font-semibold">{project.title}</h3>
+                {project.award && (
+                  <span className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 bg-yellow-400 text-yellow-900 rounded-full text-[0.7rem] font-bold shadow-sm">
+                    <Award className="w-3.5 h-3.5" aria-hidden="true" />
+                    1st Place
+                  </span>
+                )}
+              </div>
+              <p className="text-gray-600 text-sm mb-3 leading-relaxed">
                 {project.description}
               </p>
 
@@ -281,7 +335,12 @@ export default function Projects() {
               <div className="flex gap-2">
                 {/* More Details modal */}
                 <Modal>
-                  <ModalTrigger className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+                  <ModalTrigger
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary-700 text-white rounded-full text-sm font-medium shadow-sm hover:bg-primary-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    onPointerEnter={() => warmVisualizer(project.id)}
+                    onPointerDown={() => warmVisualizer(project.id)}
+                    onFocus={() => warmVisualizer(project.id)}
+                  >
                     <Info className="w-4 h-4" aria-hidden="true" />
                     More Details
                   </ModalTrigger>
@@ -293,9 +352,13 @@ export default function Projects() {
                       </div>
                       {Visualizer && (
                         <div className="mt-6">
-                          <Suspense fallback={null}>
-                            <Visualizer />
-                          </Suspense>
+                          {/* Mounts after the open animation lands, so the chart
+                              never competes with the transition for the main thread. */}
+                          <ModalDeferred fallback={<VisualizerSkeleton />}>
+                            <Suspense fallback={<VisualizerSkeleton />}>
+                              <Visualizer />
+                            </Suspense>
+                          </ModalDeferred>
                         </div>
                       )}
                     </ModalContent>
@@ -309,7 +372,7 @@ export default function Projects() {
 
                 {/* GitHub modal */}
                 <Modal>
-                  <ModalTrigger className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">
+                  <ModalTrigger className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 bg-white/70 rounded-full text-sm font-medium hover:bg-white hover:border-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
                     GitHub
                     <ExternalLink className="w-4 h-4" aria-hidden="true" />
                   </ModalTrigger>
@@ -339,7 +402,7 @@ export default function Projects() {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </Section>
   );
 }

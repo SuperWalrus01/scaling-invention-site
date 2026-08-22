@@ -296,7 +296,7 @@ export default function DiabetesBenchmarkDashboard() {
         <span className="truncate">{selectedModel.params}</span>
       </div>
 
-      <p className="text-[0.7rem] text-slate-400 leading-relaxed">
+      <p className="text-[0.7rem] text-slate-600 leading-relaxed">
         This dashboard compresses the full benchmarking workflow into a single view:
         a radar chart for aggregate performance, model-specific feature importance, and the
         final hyperparameters chosen after grid/random search. It is designed for a

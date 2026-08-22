@@ -1,13 +1,16 @@
 import { motion } from 'framer-motion';
 import { Trophy, Building, Award, Briefcase } from 'lucide-react';
 import Section from './Section';
-const TigaDataLogo = '/images/tigadata.png';
-const CaniMathLogo = '/images/Logo_CaniMath.png';
-const CaniEngineeringLogo = '/images/caniengineering.png';
+import { staggerList, riseIn, headingIn } from '@/lib/motion';
+const TigaDataLogo = '/images/tigadata.png?v=2';
+const CaniMathLogo = '/images/Logo_CaniMath.png?v=2';
+const CaniEngineeringLogo = '/images/caniengineering.png?v=2';
 
 const leadership = [
   {
     title: 'TigaData Consulting',
+    logo: TigaDataLogo,
+    logoBg: 'bg-slate-800 border-slate-800',
     location: 'Coventry, UK',
     role: 'Founder',
     period: 'June 2025 – Present',
@@ -17,6 +20,8 @@ const leadership = [
   },
   {
     title: 'CaniMath',
+    logo: CaniMathLogo,
+    logoBg: 'bg-[#cd0000] border-[#cd0000]',
     location: 'Canisius College, Jakarta',
     role: 'Founder & Chairman',
     period: 'October 2024 – June 2025',
@@ -28,6 +33,7 @@ const leadership = [
   },
   {
     title: 'CaniEngineering',
+    logo: CaniEngineeringLogo,
     location: 'Canisius College, Jakarta',
     role: 'Co-Founder & Head of Treasury',
     period: 'July 2024 – June 2025',
@@ -58,49 +64,49 @@ const leadership = [
 export default function Leadership() {
   return (
     <Section className="max-w-4xl mx-auto px-4">
-      <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8">Leadership & Activities</h2>
+      <motion.h2
+        variants={headingIn}
+        initial="hidden"
+        animate="show"
+        className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8"
+      >
+        Leadership &amp; Activities
+      </motion.h2>
 
-      <div className="space-y-4 sm:space-y-6">
+      <motion.div
+        className="space-y-4 sm:space-y-6"
+        variants={staggerList}
+        initial="hidden"
+        animate="show"
+      >
         {leadership.map((item, index) => {
           const Icon = item.icon;
           return (
             <motion.div
               key={index}
+              variants={riseIn}
               whileHover={{ x: 4 }}
               className={`glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-md hover:shadow-xl transition-shadow ${item.highlight ? 'ring-2 ring-primary-500/20' : ''}`}
             >
               <div className="flex flex-col gap-3 sm:gap-4">
                 {/* Header: logo + title/location (+ role/year on larger screens) */}
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className={`p-2.5 sm:p-3 ${item.highlight ? 'bg-primary-600' : 'bg-primary-600'} rounded-xl sm:rounded-2xl flex-shrink-0 flex items-center justify-center`}>
-                    {item.title === 'TigaData Consulting' && (
+                  {/* Neutral container: the logos carry their own backgrounds, so a
+                      coloured tile made them read as squares pasted onto blue. */}
+                  <div
+                    className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl border flex-shrink-0 flex items-center justify-center overflow-hidden p-1.5 ${
+                      item.logoBg ?? 'bg-white border-gray-200'
+                    }`}
+                  >
+                    {item.logo ? (
                       <img
-                        src={TigaDataLogo}
-                        alt="TigaData Consulting logo"
-                        className="h-6 sm:h-7 object-contain"
+                        src={item.logo}
+                        alt={`${item.title} logo`}
+                        className="max-h-full max-w-full object-contain"
                         loading="lazy"
                       />
-                    )}
-                    {item.title === 'CaniMath' && (
-                      <img
-                        src={CaniMathLogo}
-                        alt="CaniMath logo"
-                        className="h-6 sm:h-7 object-contain"
-                        loading="lazy"
-                      />
-                    )}
-                    {item.title === 'CaniEngineering' && (
-                      <img
-                        src={CaniEngineeringLogo}
-                        alt="CaniEngineering logo"
-                        className="h-6 sm:h-7 object-contain"
-                        loading="lazy"
-                      />
-                    )}
-                    {item.title !== 'TigaData Consulting' &&
-                      item.title !== 'CaniMath' &&
-                      item.title !== 'CaniEngineering' && (
-                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                    ) : (
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-700" />
                     )}
                   </div>
                   <div className="flex-1 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
@@ -112,7 +118,7 @@ export default function Leadership() {
                     </div>
                     {/* On laptop/tablet: show role + year inline with header */}
                     <div className="hidden sm:flex flex-col items-end text-right gap-0.5">
-                      <p className="text-primary-600 font-medium text-xs sm:text-sm">{item.role}</p>
+                      <p className="text-primary-700 font-medium text-xs sm:text-sm">{item.role}</p>
                       <p className="text-gray-500 text-xs sm:text-sm">{item.period}</p>
                     </div>
                   </div>
@@ -122,7 +128,7 @@ export default function Leadership() {
                 <div className="text-left">
                   {/* On phones: keep role + year stacked above description */}
                   <div className="mb-1 sm:hidden">
-                    <p className="text-primary-600 font-medium text-xs sm:text-sm">{item.role}</p>
+                    <p className="text-primary-700 font-medium text-xs sm:text-sm">{item.role}</p>
                     <p className="text-gray-500 text-xs sm:text-sm">{item.period}</p>
                   </div>
                   <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{item.description}</p>
@@ -131,7 +137,7 @@ export default function Leadership() {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </Section>
   );
 }

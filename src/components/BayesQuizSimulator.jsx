@@ -18,7 +18,7 @@ export default function BayesQuizSimulator() {
   const [step, setStep] = useState(1);
   const [flash, setFlash] = useState(null); // 'correct' | 'incorrect' | null
   const [logs, setLogs] = useState([
-    'System initialized  Prior difficulty centred at 0.60',
+    'System initialised · Prior difficulty centred at 0.60',
   ]);
 
   const logContainerRef = useRef(null);
@@ -90,7 +90,7 @@ export default function BayesQuizSimulator() {
           <div className="space-y-2">
             <div className="flex items-center justify-between text-[0.7rem] text-slate-600">
               <span>True difficulty (hidden from system)</span>
-              <span className="font-mono text-slate-400">{Math.round(TRUE_DIFFICULTY * 100)}%</span>
+              <span className="font-mono text-slate-600">{Math.round(TRUE_DIFFICULTY * 100)}%</span>
             </div>
             <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
               <div
@@ -98,7 +98,7 @@ export default function BayesQuizSimulator() {
                 style={{ width: `${TRUE_DIFFICULTY * 100}%` }}
               />
             </div>
-            <p className="text-[0.65rem] text-slate-400 italic">
+            <p className="text-[0.65rem] text-slate-500 italic">
               This bar is ghosted here for explanation only – the algorithm never
               sees the true difficulty directly.
             </p>
@@ -176,7 +176,7 @@ export default function BayesQuizSimulator() {
               <button
                 type="button"
                 onClick={() => handleAnswer(true)}
-                className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500/90 hover:bg-emerald-500 text-white text-[0.8rem] font-medium px-3 py-2 shadow-sm transition-colors"
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-[0.8rem] font-medium px-3 py-2 shadow-sm transition-colors"
               >
                 <span className="text-xs">✔</span>
                 <span>Student answers correctly</span>
@@ -184,7 +184,7 @@ export default function BayesQuizSimulator() {
               <button
                 type="button"
                 onClick={() => handleAnswer(false)}
-                className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-rose-500/90 hover:bg-rose-500 text-white text-[0.8rem] font-medium px-3 py-2 shadow-sm transition-colors"
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-[0.8rem] font-medium px-3 py-2 shadow-sm transition-colors"
               >
                 <span className="text-xs">✖</span>
                 <span>Student answers incorrectly</span>

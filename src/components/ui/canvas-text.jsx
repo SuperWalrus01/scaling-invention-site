@@ -62,7 +62,7 @@ export function CanvasText({
       const rect = textEl.getBoundingClientRect();
       const computed = window.getComputedStyle(textEl);
       setDimensions({
-        width: Math.ceil(rect.width) || 400,
+        width: (Math.ceil(rect.width) || 400) + 8,
         height: Math.ceil(rect.height) || 200,
       });
       setFont(

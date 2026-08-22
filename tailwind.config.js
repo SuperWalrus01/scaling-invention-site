@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // The site is light-only. Left unset this defaults to 'media', which fired
+  // every stray `dark:` variant (modal Close buttons, footer) whenever the
+  // visitor's phone was in dark mode, on an otherwise light page.
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",

@@ -3,14 +3,17 @@
 @tailwind utilities;
 
 @layer base {
-  html, body {
-    @apply bg-gray-50 text-gray-900 antialiased;
-    height: 100%;
-    overflow: hidden;
+  html {
+    scroll-behavior: smooth;
   }
-  
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    min-height: 100%;
+  }
+
   #root {
-    height: 100%;
+    min-height: 100%;
   }
 }
 
@@ -56,4 +59,23 @@
 
 .animation-delay-4000 {
   animation-delay: 4s;
+}
+
+/* Respect users who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-blob {
+    animation: none !important;
+  }
 }
