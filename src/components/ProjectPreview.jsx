@@ -35,6 +35,43 @@ const line = (values, top = 12, bottom = 60) => {
   );
 };
 
+// Plots against a fixed domain, so several series stay on one shared scale.
+const scaled = (values, lo, hi, top = 10, bottom = 62, offset = 0) =>
+  'M' +
+  values
+    .map((v, i) => {
+      const x = (W * i) / (values.length - 1);
+      const y = bottom - ((v + offset - lo) / (hi - lo)) * (bottom - top);
+      return `${x.toFixed(1)} ${y.toFixed(1)}`;
+    })
+    .join('L');
+
+// Mean-reverting price around an EMA fair value, with the market-making band.
+const IMC_PRICE = [
+  50.19, 50.63, 48.58, 49.36, 50.98, 47.87, 48.64, 49.32, 49.01, 50.41, 50.45,
+  48.88, 50.46, 51.16, 51.87, 52.85, 51.7, 50.56, 48.27, 49.38, 48.56, 48.39,
+  47.51, 47.35, 47.87, 50.29, 47.44, 47.18, 49.11, 51.59, 51.58, 48.56, 46.43,
+  48.76, 48.67, 48.23, 50.36, 51.27, 50.5, 50.51, 50.57,
+];
+const IMC_EMA = [
+  49.91, 49.96, 49.97, 49.95, 49.86, 49.78, 49.82, 49.89, 50.03, 50.15, 50.27,
+  50.37, 50.28, 50.29, 50.34, 50.41, 50.31, 50.08, 49.84, 49.63, 49.51, 49.44,
+  49.44, 49.39, 49.39, 49.44, 49.42, 49.56, 49.72, 49.94, 50.05, 50.05, 50.03,
+  50.0, 50.03, 50.08, 50.07, 49.98, 49.87, 49.9, 49.86,
+];
+const IMC_LO = 45.6;
+const IMC_HI = 53.7;
+const IMC_SPREAD = 2.1;
+// Points that broke the band are where mean-reversion fires.
+const IMC_SIGNALS = [15, 27, 32];
+
+// Full-stack tiers, top to bottom.
+const STACK = [
+  { label: 'React / Vite', fill: '#bae6fd', text: '#0369a1' },
+  { label: 'Supabase · auth', fill: '#38bdf8', text: '#ffffff' },
+  { label: 'Stripe billing', fill: '#0369a1', text: '#ffffff' },
+];
+
 const WALK = [
   4, 6.4, 9.1, 8.2, 4.7, 4.5, 5.8, 8.6, 5.4, 2, 3.9, 5.1, 9, 11.6, 11.3, 10.6,
   17, 16.2, 14.2, 11.2, 11.4, 11.8, 10.9, 10.7, 11.4, 13.2, 16, 16.6, 12, 13.8,
@@ -126,6 +163,86 @@ const previews = {
               rx="5"
               fill={h === Math.max(...BARS) ? '#0284c7' : '#bae6fd'}
             />
+          );
+        })}
+      </>
+    ),
+  },
+
+  'imc-prosperity': {
+    stretch: true,
+    art: (
+      <>
+        {/* Quoted band around fair value: the market-making spread */}
+        <path
+          d={`${scaled(IMC_EMA, IMC_LO, IMC_HI, 10, 62, IMC_SPREAD)}L${W} 62L0 62Z`}
+          fill="#e0f2fe"
+        />
+        <path
+          d={`${scaled(IMC_EMA, IMC_LO, IMC_HI, 10, 62, -IMC_SPREAD)}L${W} 62L0 62Z`}
+          fill="#f8fdff"
+        />
+        <path
+          d={scaled(IMC_EMA, IMC_LO, IMC_HI, 10, 62, IMC_SPREAD)}
+          fill="none"
+          stroke="#7dd3fc"
+          strokeWidth="1.5"
+          strokeDasharray="5 4"
+        />
+        <path
+          d={scaled(IMC_EMA, IMC_LO, IMC_HI, 10, 62, -IMC_SPREAD)}
+          fill="none"
+          stroke="#7dd3fc"
+          strokeWidth="1.5"
+          strokeDasharray="5 4"
+        />
+        {/* EMA fair value */}
+        <path
+          d={scaled(IMC_EMA, IMC_LO, IMC_HI)}
+          fill="none"
+          stroke="#0369a1"
+          strokeWidth="2.5"
+        />
+        {/* Traded price */}
+        <path
+          d={scaled(IMC_PRICE, IMC_LO, IMC_HI)}
+          fill="none"
+          stroke="#0284c7"
+          strokeWidth="1.5"
+          strokeOpacity="0.75"
+        />
+        {IMC_SIGNALS.map((i) => {
+          const x = (W * i) / (IMC_PRICE.length - 1);
+          const y = 62 - ((IMC_PRICE[i] - IMC_LO) / (IMC_HI - IMC_LO)) * 52;
+          return <circle key={i} cx={x} cy={y} r="4" fill="#f59e0b" stroke="#ffffff" strokeWidth="1.5" />;
+        })}
+      </>
+    ),
+  },
+
+  'tmua-wizzz': {
+    stretch: false,
+    art: (
+      <>
+        {STACK.map((tier, i) => {
+          const h = 17;
+          const gap = 4;
+          const y = 7 + i * (h + gap);
+          const inset = 40 + i * 26;
+          return (
+            <g key={tier.label}>
+              <rect x={inset} y={y} width={W - inset * 2} height={h} rx={h / 2} fill={tier.fill} />
+              <text
+                x={W / 2}
+                y={y + 12.5}
+                textAnchor="middle"
+                fontSize="11"
+                fontWeight="600"
+                fill={tier.text}
+              >
+                {tier.label}
+              </text>
+            </g>
           );
         })}
       </>

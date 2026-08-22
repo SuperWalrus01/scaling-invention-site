@@ -18,7 +18,9 @@ import {
 // warm the chunk (fetch + evaluate) before the modal ever opens.
 const visualizerLoaders = {
   'bayesquiz-sim': () => import('./BayesQuizSimulator'),
+  'tmua-wizzz': () => import('./TMUAStackTracer'),
   'infinitics-8': () => import('./InfiniticsVisualizer'),
+  'imc-prosperity': () => import('./IMCTradingSimulator'),
   'drw-crypto': () => import('./DRWPipelineVisualizer'),
   'diabetes-benchmark': () => import('./DiabetesBenchmarkDashboard'),
 };
@@ -98,6 +100,45 @@ const projects = [
     ),
   },
   {
+    id: 'tmua-wizzz',
+    title: 'TMUA Wizzz - by TigaData',
+    description: 'Full-stack TMUA exam-prep platform built solo end to end: a React and Vite frontend, Supabase for the backend and authentication, and Stripe for subscription billing. Owned authentication, subscriptions, and deployment.',
+    impact: 'Shipped a complete subscription product single-handedly, from auth to billing to deployment.',
+    tags: ['React', 'Supabase', 'Stripe', 'Full-Stack'],
+    github: '#',
+    details: (
+      <>
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Overview</h4>
+        <p>
+          TMUA Wizzz is an exam-preparation platform for the Test of Mathematics for University
+          Admission, built under TigaData. I owned the entire build: frontend, backend, payments,
+          and deployment.
+        </p>
+
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">Stack</h4>
+        <ul className="list-disc pl-4 space-y-1">
+          <li>React with Vite for the frontend, giving fast builds and a responsive practice interface.</li>
+          <li>
+            Supabase for the database, row-level security, and authentication, so accounts and
+            progress are stored and protected without running a bespoke server.
+          </li>
+          <li>
+            Stripe for subscription billing, including checkout, plan management, and webhook
+            handling to keep entitlements in sync with payment state.
+          </li>
+        </ul>
+
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">Outcome</h4>
+        <ul className="list-disc pl-4 space-y-1">
+          <li>Delivered a working subscription product solo, rather than a prototype.</li>
+          <li>
+            Handled the parts that usually need a team: auth flows, payment state, and deployment.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
     id: 'infinitics-8',
     title: 'Infinitics 8 Competition - Cyber Insurance Pricing',
     description: '1st Place. Modelled computer transitions (Susceptible, Infected, Quarantined, Damaged) as CTMC for cyber insurance pricing using stochastic modelling and Monte Carlo simulation. Offered scholarship to study actuarial mathematics at Universitas Pelita Harapan (Indonesia).',
@@ -148,6 +189,52 @@ const projects = [
           <li>
             As a result of this work, I was offered a scholarship to study actuarial
             mathematics at Universitas Pelita Harapan (Indonesia).
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: 'imc-prosperity',
+    title: 'IMC Prosperity 4 - Algorithmic Trading',
+    description: 'Top 10% of 18,800 teams, entered solo. Built algorithmic trading models across a 50-product simulated market, combining linear regression and EMA-based fair value forecasting with mean-reversion and market-making logic, and pricing options positions with Black-Scholes.',
+    impact: 'Top 10% of 18,800 teams as a solo entrant.',
+    tags: ['Top 10%', 'Algorithmic Trading', 'Black-Scholes'],
+    github: '#',
+    details: (
+      <>
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Overview</h4>
+        <p>
+          IMC Prosperity 4 is a global algorithmic trading competition run over a simulated market of
+          50 products. I entered solo and finished in the top 10% of 18,800 teams.
+        </p>
+
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">Approach</h4>
+        <ul className="list-disc pl-4 space-y-1">
+          <li>
+            Estimated fair value per product using linear regression and exponential moving averages,
+            then traded the gap between quoted price and that estimate.
+          </li>
+          <li>
+            Layered mean-reversion and market-making logic on top: quoting a spread around fair value
+            and taking positions when price broke out of the band.
+          </li>
+          <li>
+            Priced options positions with the Black-Scholes model to trade volatility rather than
+            direction alone.
+          </li>
+          <li>
+            Applied game-theoretic bid optimisation in the manual auction rounds, reasoning about how
+            other teams would bid rather than bidding on private value alone.
+          </li>
+        </ul>
+
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">Outcome</h4>
+        <ul className="list-disc pl-4 space-y-1">
+          <li>Placed in the top 10% of 18,800 teams without a team to split the work across.</li>
+          <li>
+            Practical experience with the full loop: signal construction, execution logic, inventory
+            risk, and derivatives pricing under time pressure.
           </li>
         </ul>
       </>
