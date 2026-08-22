@@ -106,7 +106,7 @@ function App() {
         {showSplash && <SplashScreen onDone={dismissSplash} />}
       </AnimatePresence>
 
-      <div className="relative z-0 min-h-screen flex flex-col">
+      <div className="relative z-0 min-h-viewport flex flex-col">
         {/* Focus main directly rather than following the href, so the skip link
             does not overwrite the tab hash. */}
         <a
@@ -129,7 +129,7 @@ function App() {
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex-1 flex flex-col px-4 sm:px-6 lg:px-8 pt-32 pb-12 focus:outline-none"
+          className="flex-1 flex flex-col px-4 sm:px-6 lg:px-8 pt-32 pb-4 sm:pb-10 focus:outline-none"
         >
           {/* flex-1 on the panel keeps the footer pinned to the bottom on short
               tabs, instead of stranding it halfway up an empty page. */}
@@ -147,7 +147,7 @@ function App() {
           </div>
 
           <div className="container mx-auto w-full">
-            <div className="mt-10 text-xs sm:text-sm">
+            <div className="mt-8 sm:mt-10 text-xs sm:text-sm">
               <div className="max-w-5xl mx-auto flex flex-col items-center justify-center gap-1 text-slate-500 dark:text-slate-400 text-center">
                 <span className="text-[0.7rem] sm:text-xs">
                   © {new Date().getFullYear()} Keenan Jusak. All rights reserved.

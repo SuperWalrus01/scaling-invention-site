@@ -90,6 +90,20 @@
     mask-image: radial-gradient(78% 58% at 50% 22%, #000 32%, transparent 100%);
   }
 
+  /* iOS resolves 100vh against the viewport with the URL bar hidden, so
+     min-h-screen makes the page taller than what's actually visible and you can
+     scroll past the footer. svh is the visible height; vh stays as the fallback
+     so the footer still pins on browsers without svh. */
+  .min-h-viewport {
+    min-height: 100vh;
+  }
+
+  @supports (min-height: 100svh) {
+    .min-h-viewport {
+      min-height: 100svh;
+    }
+  }
+
   /* Raised card surface. Deliberately no backdrop-filter: a gradient fill is
      cheaper to composite than blurring everything behind every card. */
   .surface {
