@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 const NAME = 'Keenan Jusak';
@@ -19,12 +19,31 @@ const letter = {
   },
 };
 
+// Same beats, no travel: the name still fades in letter by letter but nothing
+// slides, so the splash stays visible for people who ask for reduced motion.
+const calmContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.03, delayChildren: 0.1 } },
+  exit: { transition: { duration: 0.1 } },
+};
+
+const calmLetter = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.35 } },
+};
+
 /**
- * First-visit splash. Shown once per browser session and skipped entirely for
- * anyone who prefers reduced motion; both decisions are made in App.jsx.
+ * First-visit splash, shown once per browser session (gated in App.jsx).
  * Dismissable early with a click or any key, so it never feels like a wall.
  */
 export default function SplashScreen({ onDone }) {
+  const reducedMotion = useMemo(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    [],
+  );
+
   useEffect(() => {
     const timer = window.setTimeout(onDone, HOLD_MS);
     const skip = () => onDone();
@@ -49,13 +68,13 @@ export default function SplashScreen({ onDone }) {
       <div className="absolute inset-0 stats-grid-bg opacity-40" />
 
       <motion.h1
-        variants={container}
+        variants={reducedMotion ? calmContainer : container}
         initial="hidden"
         animate="show"
         className="relative text-4xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-r from-primary-700 to-primary-500 bg-clip-text text-transparent px-6 text-center"
       >
         {NAME.split('').map((char, i) => (
-          <motion.span key={i} variants={letter} className="inline-block">
+          <motion.span key={i} variants={reducedMotion ? calmLetter : letter} className="inline-block">
             {char === ' ' ? ' ' : char}
           </motion.span>
         ))}

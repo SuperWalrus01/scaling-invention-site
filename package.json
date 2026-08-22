@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "cp index.vite.html index.html && vite",
-    "build": "vite build",
+    "build": "cp index.vite.html index.html && vite build",
     "preview": "vite preview",
     "preview:prod": "npm run build && vite preview"
   },

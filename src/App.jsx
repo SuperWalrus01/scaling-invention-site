@@ -13,10 +13,11 @@ const TAB_IDS = ['profile', 'education', 'projects', 'skills', 'leadership'];
 
 const SPLASH_KEY = 'kj-splash-seen';
 
-// Once per browser session, and never for anyone who asks for reduced motion.
+// Once per browser session. Reduced motion no longer skips it outright: iOS
+// "Reduce Motion" is common enough that it hid the splash permanently on those
+// devices. SplashScreen serves a calm, fade-only version instead.
 function shouldShowSplash() {
   if (typeof window === 'undefined') return false;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
   try {
     return window.sessionStorage.getItem(SPLASH_KEY) !== '1';
   } catch {

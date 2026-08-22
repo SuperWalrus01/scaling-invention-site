@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Brain, BarChart3, Users, Code, Database, Globe } from 'lucide-react';
+import { Brain, BarChart3, Users, Code, Database, Globe, Landmark } from 'lucide-react';
 import Section from './Section';
 import { staggerList, riseIn, headingIn } from '@/lib/motion';
 
@@ -15,6 +15,27 @@ const skillClusters = [
     narrative: [
       'Use continuous-time Markov chains (CTMC) and stochastic processes to describe how systems evolve over time.',
       'Apply actuarial-style modelling to topics like cyber insurance pricing and risk quantification.',
+    ],
+  },
+  {
+    id: 'finance',
+    label: 'Accounting & Finance',
+    icon: Landmark,
+    skills: [
+      'DCF Valuation',
+      'Three-Statement Modelling',
+      'WACC & Cost of Capital',
+      'Comparable Company Analysis',
+      'Financial Statement Analysis',
+      'Scenario & Sensitivity Analysis',
+      'Excel Financial Modelling',
+    ],
+    summary:
+      'Valuation and financial modelling, from building the statements up to a defensible intrinsic value.',
+    narrative: [
+      'Build linked three-statement models (income statement, balance sheet, cash flow) that balance and flow through, then stress them with scenario and sensitivity analysis.',
+      'Run discounted cash flow valuations end to end: forecast free cash flow, derive WACC and terminal value, then sanity-check the output against trading comparables.',
+      'Read financial statements for what they actually say, using ratio and margin analysis to judge profitability, leverage, and cash conversion.',
     ],
   },
   {
