@@ -160,13 +160,15 @@ function App() {
           </div>
         </main>
 
-        {/* Decorative gradient blobs + stats-style grid (home only) */}
+        {/* Ambient colour field, one hue mix per tab. */}
         <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10" aria-hidden="true">
+          <div className="absolute inset-0 ambient-base" />
+          <div className={`absolute inset-0 ambient-${activeTab}`} />
+          <div className="absolute inset-0 ambient-grid" />
           {activeTab === 'profile' && (
             <>
-              <div className="absolute inset-0 stats-grid-bg opacity-40 sm:opacity-50" />
-              <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-sky-200 rounded-full filter blur-2xl opacity-20 animate-blob will-change-transform" />
-              <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-sky-200 rounded-full filter blur-2xl opacity-20 animate-blob animation-delay-2000 will-change-transform hidden sm:block" />
+              <div className="absolute top-1/4 left-[12%] w-80 h-80 bg-sky-300 rounded-full filter blur-3xl opacity-25 animate-blob will-change-transform" />
+              <div className="absolute top-1/3 right-[14%] w-80 h-80 bg-indigo-300 rounded-full filter blur-3xl opacity-20 animate-blob animation-delay-2000 will-change-transform hidden sm:block" />
             </>
           )}
         </div>

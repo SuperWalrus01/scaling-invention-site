@@ -143,11 +143,11 @@ export default function Skills() {
                 onClick={() => setActiveId(cluster.id)}
                 whileHover={{ y: -2, scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full text-left rounded-2xl sm:rounded-3xl border transition-all shadow-sm px-4 sm:px-5 py-3.5 sm:py-4 flex items-center gap-3 sm:gap-4 backdrop-blur-md
+                className={`w-full text-left rounded-2xl sm:rounded-3xl border transition-all shadow-sm px-4 sm:px-5 py-3.5 sm:py-4 flex items-center gap-3 sm:gap-4
                   ${
                     isActive
-                      ? 'border-primary-400/80 bg-white/90 shadow-lg'
-                      : 'border-gray-200/80 bg-white/60 hover:bg-white'
+                      ? 'border-primary-400/80 bg-white shadow-lg'
+                      : 'border-sky-100 bg-white/80 hover:bg-white hover:border-primary-200 hover:shadow-lg'
                   }`}
               >
                 <div
@@ -176,7 +176,7 @@ export default function Skills() {
           initial={{ opacity: 0, y: 12, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ type: 'spring', stiffness: 140, damping: 18 }}
-          className="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-7 shadow-lg flex flex-col gap-4 sm:gap-5 lg:sticky lg:top-28"
+          className="surface rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-7 shadow-lg flex flex-col gap-4 sm:gap-5 lg:sticky lg:top-28"
         >
           <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
             <div>

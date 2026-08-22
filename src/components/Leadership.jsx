@@ -86,7 +86,7 @@ export default function Leadership() {
               key={index}
               variants={riseIn}
               whileHover={{ x: 4 }}
-              className={`glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-md hover:shadow-xl transition-shadow ${item.highlight ? 'ring-2 ring-primary-500/20' : ''}`}
+              className={`surface rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-md hover:shadow-xl transition-shadow ${item.highlight ? 'ring-2 ring-primary-500/20' : ''}`}
             >
               <div className="flex flex-col gap-3 sm:gap-4">
                 {/* Header: logo + title/location (+ role/year on larger screens) */}

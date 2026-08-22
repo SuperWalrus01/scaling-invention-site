@@ -35,6 +35,73 @@
     scrollbar-width: none;
   }
 
+  /* Ambient colour field painted behind a tab. Each section gets its own hue
+     mix from one harmonious family, so pages read as distinct without the
+     palette turning into an arbitrary rainbow. */
+  .ambient-base {
+    background-color: #eef4fb;
+  }
+
+  /* One field per tab. Hues are adjacent and share saturation and lightness, so
+     the sections read as distinct without the palette fragmenting. */
+  .ambient-profile {
+    background:
+      radial-gradient(45rem 32rem at 4% -10%, rgba(56, 189, 248, 0.42), transparent 62%),
+      radial-gradient(40rem 30rem at 99% 4%, rgba(129, 140, 248, 0.32), transparent 64%),
+      radial-gradient(48rem 36rem at 48% 110%, rgba(45, 212, 191, 0.28), transparent 62%);
+  }
+
+  .ambient-education {
+    background:
+      radial-gradient(45rem 32rem at 2% -8%, rgba(129, 140, 248, 0.38), transparent 62%),
+      radial-gradient(40rem 30rem at 98% 8%, rgba(56, 189, 248, 0.28), transparent 64%),
+      radial-gradient(46rem 34rem at 55% 108%, rgba(165, 180, 252, 0.26), transparent 62%);
+  }
+
+  .ambient-projects {
+    background:
+      radial-gradient(45rem 32rem at 3% -8%, rgba(34, 211, 238, 0.36), transparent 62%),
+      radial-gradient(42rem 30rem at 97% 6%, rgba(56, 189, 248, 0.30), transparent 64%),
+      radial-gradient(46rem 34rem at 50% 108%, rgba(45, 212, 191, 0.24), transparent 62%);
+  }
+
+  .ambient-skills {
+    background:
+      radial-gradient(45rem 32rem at 4% -8%, rgba(45, 212, 191, 0.36), transparent 62%),
+      radial-gradient(40rem 30rem at 98% 6%, rgba(34, 211, 238, 0.30), transparent 64%),
+      radial-gradient(46rem 34rem at 52% 108%, rgba(94, 234, 212, 0.26), transparent 62%);
+  }
+
+  .ambient-leadership {
+    background:
+      radial-gradient(45rem 32rem at 3% -8%, rgba(167, 139, 250, 0.36), transparent 62%),
+      radial-gradient(40rem 30rem at 98% 6%, rgba(129, 140, 248, 0.30), transparent 64%),
+      radial-gradient(46rem 34rem at 50% 108%, rgba(56, 189, 248, 0.24), transparent 62%);
+  }
+
+  /* Fine grid, faded at the edges: gives the wash some structure so it reads as
+     a designed surface rather than a blur. */
+  .ambient-grid {
+    background-image:
+      linear-gradient(to right, rgba(3, 105, 161, 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(3, 105, 161, 0.07) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(78% 58% at 50% 22%, #000 32%, transparent 100%);
+    mask-image: radial-gradient(78% 58% at 50% 22%, #000 32%, transparent 100%);
+  }
+
+  /* Raised card surface. Deliberately no backdrop-filter: a gradient fill is
+     cheaper to composite than blurring everything behind every card. */
+  .surface {
+    background-image: linear-gradient(180deg, #ffffff 0%, #f4fbff 100%);
+    border: 1px solid rgba(186, 230, 253, 0.9);
+  }
+
+  .surface-accent {
+    background-image: linear-gradient(180deg, #ffffff 0%, #fffaf0 100%);
+    border: 1px solid rgba(253, 230, 138, 0.95);
+  }
+
   .stats-grid-bg {
     background-image:
       radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.35), transparent 60%),

@@ -41,47 +41,185 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Damianus Keenan Jusak",
-      "alternateName": "Keenan Jusak",
-      "url": "https://keenanjusak.com/",
-      "image": "https://keenanjusak.com/images/og-image.png",
-      "jobTitle": "Mathematics and Statistics Student",
-      "description": "Mathematics and Statistics BSc student at the University of Warwick and Global Excellence Scholar, working on stochastic modelling, quantitative finance, and data science.",
-      "alumniOf": [
+      "@graph": [
         {
-          "@type": "CollegeOrUniversity",
-          "name": "University of Warwick",
-          "sameAs": "https://warwick.ac.uk/"
+          "@type": "Person",
+          "@id": "https://keenanjusak.com/#person",
+          "name": "Damianus Keenan Jusak",
+          "alternateName": "Keenan Jusak",
+          "url": "https://keenanjusak.com/",
+          "image": "https://keenanjusak.com/images/og-image.png",
+          "jobTitle": "Mathematics and Statistics Student",
+          "description": "Mathematics and Statistics BSc student at the University of Warwick and Global Excellence Scholar, working on stochastic modelling, quantitative finance, actuarial mathematics, and machine learning.",
+          "homeLocation": [
+            { "@type": "Place", "name": "Coventry, United Kingdom" },
+            { "@type": "Place", "name": "Jakarta, Indonesia" }
+          ],
+          "alumniOf": [
+            {
+              "@type": "CollegeOrUniversity",
+              "name": "University of Warwick",
+              "sameAs": "https://warwick.ac.uk/"
+            },
+            { "@type": "HighSchool", "name": "Canisius College, Jakarta" }
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "BSc Mathematics and Statistics",
+              "educationalLevel": "Bachelor's Degree",
+              "credentialCategory": "degree",
+              "recognizedBy": { "@type": "CollegeOrUniversity", "name": "University of Warwick" },
+              "validFrom": "2026-09"
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "Foundation in Mathematics and Statistics, overall grade 93",
+              "credentialCategory": "foundation",
+              "recognizedBy": { "@type": "CollegeOrUniversity", "name": "University of Warwick" },
+              "validFrom": "2025-09",
+              "validUntil": "2026-06"
+            },
+            {
+              "@type": "EducationalOccupationalCredential",
+              "name": "High School Diploma, Natural Sciences, grade 92.3 (Magna Cum Laude)",
+              "credentialCategory": "diploma",
+              "recognizedBy": { "@type": "HighSchool", "name": "Canisius College, Jakarta" },
+              "validUntil": "2025-05"
+            }
+          ],
+          "award": [
+            "Global Excellence Scholarship, University of Warwick",
+            "1st place, Infinitics 8 Competition (cyber insurance pricing)",
+            "Scholarship offer in actuarial mathematics, Universitas Pelita Harapan",
+            "3rd place, Springfield Cup badminton, February 2024"
+          ],
+          "knowsAbout": [
+            "Quantitative Finance",
+            "Stochastic Modelling",
+            "Continuous-Time Markov Chains",
+            "Actuarial Mathematics",
+            "DCF Valuation",
+            "Three-Statement Financial Modelling",
+            "Financial Statement Analysis",
+            "Statistics",
+            "Machine Learning",
+            "Data Science",
+            "Bayesian Inference",
+            "Python",
+            "R",
+            "SQL"
+          ],
+          "knowsLanguage": [
+            { "@type": "Language", "name": "Indonesian", "alternateName": "id" },
+            { "@type": "Language", "name": "English", "alternateName": "en" }
+          ],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "TigaData Consulting",
+            "description": "Non-profit data analytics consultancy for non-profit organisations and university societies.",
+            "location": "Coventry, United Kingdom"
+          },
+          "seeks": {
+            "@type": "Demand",
+            "name": "Summer data and quantitative internships, research and competition teams, analytics work with non-profits"
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/damianus-keenan-jusak-74552623b/",
+            "https://www.kaggle.com/keenanjusak"
+          ]
         },
         {
-          "@type": "HighSchool",
-          "name": "Canisius College, Jakarta"
+          "@type": "WebSite",
+          "@id": "https://keenanjusak.com/#website",
+          "url": "https://keenanjusak.com/",
+          "name": "Keenan Jusak",
+          "about": { "@id": "https://keenanjusak.com/#person" },
+          "inLanguage": "en-GB"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Cyber Insurance Pricing with a Continuous-Time Markov Chain",
+          "author": { "@id": "https://keenanjusak.com/#person" },
+          "about": "Modelling computer state transitions (Susceptible, Infected, Quarantined, Damaged) as a CTMC and pricing cyber insurance premiums via Monte Carlo simulation. First place, Infinitics 8 Competition.",
+          "keywords": "CTMC, stochastic modelling, actuarial science, cyber risk, Monte Carlo"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "BayesQuiz",
+          "applicationCategory": "EducationalApplication",
+          "author": { "@id": "https://keenanjusak.com/#person" },
+          "description": "Quiz platform that uses Bayesian inference to update question-difficulty estimates as students answer. 70+ quizzes and 400+ student accounts.",
+          "keywords": "Bayesian inference, React, Firebase, education technology"
         }
-      ],
-      "knowsAbout": [
-        "Quantitative Finance",
-        "Stochastic Modelling",
-        "Actuarial Mathematics",
-        "Statistics",
-        "Machine Learning",
-        "Data Science"
-      ],
-      "knowsLanguage": ["en", "id"],
-      "sameAs": [
-        "https://www.linkedin.com/in/damianus-keenan-jusak-74552623b/",
-        "https://www.kaggle.com/keenanjusak"
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-Bj-b8JIQ.js"></script>
+    <script type="module" crossorigin src="/assets/index-FYqz-lSK.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-BmHSDinq.js">
     <link rel="modulepreload" crossorigin href="/assets/motion-s2iKK67F.js">
     <link rel="modulepreload" crossorigin href="/assets/icons-DIUPyCnl.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-D_vmYxqj.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-DVmQmo9L.css">
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- The app is client-rendered, so crawlers that don't execute JavaScript
+         (including most AI crawlers) would otherwise see an empty page. This
+         mirrors the rendered content; a fuller summary lives at /llms.txt -->
+    <noscript>
+      <main>
+        <h1>Keenan Jusak</h1>
+        <p>
+          Damianus Keenan Jusak is a Mathematics and Statistics student with a deep interest in
+          finance, especially quantitative finance, markets, and risk. He completed the Mathematics
+          &amp; Statistics Foundation at the University of Warwick with an overall grade of 93 and is
+          now reading for a BSc in Mathematics and Statistics there as a Global Excellence Scholar.
+          He specialises in stochastic modelling, actuarial mathematics, and machine learning.
+          Based in Coventry, United Kingdom and Jakarta, Indonesia.
+        </p>
+
+        <h2>Education</h2>
+        <ul>
+          <li>University of Warwick — BSc Mathematics and Statistics, 2026–2029. Global Excellence Scholarship.</li>
+          <li>University of Warwick — Foundation in Mathematics &amp; Statistics, September 2025 – June 2026. Overall grade 93. Global Excellence Scholarship.</li>
+          <li>Canisius College, Jakarta — High School Diploma, Natural Sciences, July 2022 – May 2025. Grade 92.3, Magna Cum Laude.</li>
+        </ul>
+
+        <h2>Projects</h2>
+        <ul>
+          <li><strong>Infinitics 8 Competition, cyber insurance pricing (1st place).</strong> Modelled computer state transitions (Susceptible, Infected, Quarantined, Damaged) as a continuous-time Markov chain and priced premiums using Monte Carlo simulation. Led to a scholarship offer in actuarial mathematics at Universitas Pelita Harapan.</li>
+          <li><strong>BayesQuiz.</strong> Educational quiz platform using Bayesian inference to update question-difficulty estimates. Built with React and Firebase; 70+ quizzes and 400+ student accounts.</li>
+          <li><strong>Diabetes Prediction.</strong> Benchmarking study of supervised learning algorithms on clinical measurements, comparing logistic regression, trees, random forests, SVMs, and gradient boosting.</li>
+          <li><strong>DRW Crypto Forecasting Competition.</strong> Short-horizon price forecasting using PCA, feature selection, and tuned LightGBM and XGBoost models.</li>
+        </ul>
+
+        <h2>Skills</h2>
+        <ul>
+          <li>Mathematics and statistics: CTMC, stochastic modelling, actuarial-style modelling.</li>
+          <li>Accounting and finance: DCF valuation, three-statement modelling, WACC and cost of capital, comparable company analysis, financial statement analysis, scenario and sensitivity analysis.</li>
+          <li>Programming: Python, R, JavaScript, MATLAB, VBA, HTML, CSS.</li>
+          <li>Data science and machine learning: supervised learning, EDA, PCA, LightGBM, XGBoost.</li>
+          <li>Tools: SQL, OpenAI API, Supabase, Firebase, cPanel, LaTeX.</li>
+          <li>Languages: Indonesian (native), English (fluent, IELTS 8.0).</li>
+        </ul>
+
+        <h2>Leadership</h2>
+        <ul>
+          <li>TigaData Consulting — Founder, Coventry, June 2025 to present. Non-profit data analytics consultancy; team of four engineers across 5+ projects.</li>
+          <li>CaniMath — Founder &amp; Chairman, October 2024 – June 2025.</li>
+          <li>CaniEngineering — Co-Founder &amp; Head of Treasury, July 2024 – June 2025.</li>
+          <li>Badminton, School Team A, 2023–2025. 3rd place, Springfield Cup, February 2024.</li>
+        </ul>
+
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/damianus-keenan-jusak-74552623b/">LinkedIn</a></li>
+          <li><a href="https://www.kaggle.com/keenanjusak">Kaggle</a></li>
+          <li><a href="/llms.txt">Structured summary for AI assistants (llms.txt)</a></li>
+        </ul>
+      </main>
+    </noscript>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {

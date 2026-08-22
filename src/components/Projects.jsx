@@ -295,7 +295,7 @@ export default function Projects() {
               key={project.id}
               variants={riseIn}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="glass rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-lg hover:shadow-2xl transition-shadow relative overflow-hidden group"
+              className="surface rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-lg hover:shadow-2xl transition-shadow relative overflow-hidden group"
             >
               <div className="-mx-5 sm:-mx-6 -mt-5 sm:-mt-6 mb-4 rounded-t-2xl sm:rounded-t-3xl overflow-hidden bg-gradient-to-b from-primary-50/70 to-transparent">
                 <ProjectPreview id={project.id} />

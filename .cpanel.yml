@@ -7,6 +7,7 @@ deployment:
     - /bin/cp -R images $DEPLOYPATH
     - /bin/cp -R robots.txt $DEPLOYPATH
     - /bin/cp -R sitemap.xml $DEPLOYPATH
+    - /bin/cp -R llms.txt $DEPLOYPATH
     - /bin/cp -R .htaccess $DEPLOYPATH
     - /bin/cp -R manifest.webmanifest $DEPLOYPATH
     - /bin/cp -R sw.js $DEPLOYPATH

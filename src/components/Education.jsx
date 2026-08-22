@@ -93,7 +93,7 @@ export default function Education() {
             key={item.id}
             variants={riseIn}
             whileHover={{ y: -4 }}
-            className={`glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow ${
+            className={`surface rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow ${
               item.current ? 'ring-2 ring-primary-500/20' : ''
             }`}
           >

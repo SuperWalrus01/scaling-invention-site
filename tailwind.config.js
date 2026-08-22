@@ -8,6 +8,16 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  // ambient-<tab> is composed at runtime, so Tailwind's content scan can't see
+  // it. These are plain custom utilities in index.css, not generated classes,
+  // so they survive purge regardless; listed here as documentation.
+  safelist: [
+    'ambient-profile',
+    'ambient-education',
+    'ambient-projects',
+    'ambient-skills',
+    'ambient-leadership',
+  ],
   theme: {
     extend: {
       fontFamily: {

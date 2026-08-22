@@ -10,6 +10,7 @@ import {
   ModalTrigger,
 } from '@/components/ui/animated-modal';
 import { ContentPreview } from '@/components/ui/content-preview';
+const Portrait = '/images/portrait.png';
 import { staggerList, riseIn } from '@/lib/motion';
 
 export default function Profile({ setActiveTab }) {
@@ -17,6 +18,8 @@ export default function Profile({ setActiveTab }) {
   return (
     <Section className="text-center max-w-3xl mx-auto">
       <motion.div variants={staggerList} initial="hidden" animate="show">
+        {/* Modest drop from the navbar, not a full-screen centre. */}
+        <div className="pt-[3vh] sm:pt-[6vh]">
         <motion.h1
           variants={riseIn}
           className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent px-4"
@@ -33,7 +36,7 @@ export default function Profile({ setActiveTab }) {
           <span>Based in Coventry, UK &amp; Jakarta, ID</span>
         </motion.div>
 
-        <motion.div variants={riseIn} className="flex gap-3 sm:gap-4 justify-center flex-wrap px-4">
+        <motion.div variants={riseIn} className="flex gap-3 sm:gap-4 justify-center flex-wrap px-4 mb-2">
           {/* GitHub */}
           <Modal>
             <ModalTrigger className="group/modal-btn flex justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-gray-900 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95 text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2">
@@ -150,14 +153,23 @@ export default function Profile({ setActiveTab }) {
           </Modal>
         </motion.div>
 
-        <motion.div variants={riseIn} className="mt-6 px-4">
-          <p className="text-sm sm:text-base text-black max-w-xl mx-auto">
-            Currently focused on quantitative finance, markets, cyber risk, and data
-            science projects that combine mathematical rigour with real users and impact.
-          </p>
-        </motion.div>
+        </div>
 
-        <motion.div variants={riseIn} className="mt-8 sm:mt-12 p-6 sm:p-8 glass rounded-2xl sm:rounded-3xl text-center mx-4 sm:mx-0">
+        <motion.div
+          variants={riseIn}
+          className="relative mt-24 sm:mt-32 mx-4 sm:mx-0"
+        >
+          {/* Sits above the card in the DOM, so the card's opaque surface covers
+              its lower edge and it reads as peeking over the top. On the right
+              because the portrait faces left, looking into the card. */}
+          <img
+            src={Portrait}
+            alt="Keenan Jusak"
+            width="219"
+            height="281"
+            className="pointer-events-none select-none absolute right-1 sm:right-8 bottom-full translate-y-7 sm:translate-y-9 w-28 sm:w-40 md:w-44 h-auto drop-shadow-xl"
+          />
+          <div className="relative p-6 sm:p-8 surface rounded-2xl sm:rounded-3xl text-center shadow-sm">
           <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">About Me</h2>
           <p className="text-sm sm:text-base text-black leading-relaxed">
             I'm a mathematics and statistics student with a deep interest in finance,
@@ -168,9 +180,10 @@ export default function Profile({ setActiveTab }) {
             and machine learning, applying mathematical rigour to real-world problems, from
             cyber insurance pricing to predictive modelling competitions.
           </p>
+          </div>
         </motion.div>
 
-        <motion.div variants={riseIn} className="mt-4 sm:mt-6 p-6 sm:p-7 glass rounded-2xl sm:rounded-3xl mx-4 sm:mx-0 text-left">
+        <motion.div variants={riseIn} className="mt-4 sm:mt-6 p-6 sm:p-7 surface rounded-2xl sm:rounded-3xl mx-4 sm:mx-0 text-left shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-4">
             <div>
               <h2 className="text-lg sm:text-xl font-semibold mb-1">What I'm looking for</h2>
@@ -182,13 +195,13 @@ export default function Profile({ setActiveTab }) {
           </div>
 
           <div className="flex flex-wrap gap-2 sm:gap-3 mb-4">
-            <span className="px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-xs sm:text-sm font-medium">
-              Summer data & quant internships
+            <span className="px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 ring-1 ring-primary-100 text-xs sm:text-sm font-medium">
+              Summer data &amp; quant internships
             </span>
-            <span className="px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-xs sm:text-sm font-medium">
-              Research & competition teams
+            <span className="px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 ring-1 ring-indigo-100 text-xs sm:text-sm font-medium">
+              Research &amp; competition teams
             </span>
-            <span className="px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-xs sm:text-sm font-medium">
+            <span className="px-3 py-1.5 rounded-full bg-teal-50 text-teal-700 ring-1 ring-teal-100 text-xs sm:text-sm font-medium">
               Analytics work with non-profits
             </span>
           </div>
@@ -221,9 +234,9 @@ export default function Profile({ setActiveTab }) {
                 <button
                   type="button"
                   onClick={() => setActiveTab && setActiveTab('projects')}
-                  className="text-left rounded-2xl border border-primary-100 bg-white/80 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
+                  className="text-left rounded-2xl border border-amber-200 bg-gradient-to-b from-white to-amber-50/70 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
                 >
-                  <p className="text-[0.7rem] sm:text-[0.75rem] uppercase tracking-wide text-primary-700 font-semibold mb-1">
+                  <p className="text-[0.7rem] sm:text-[0.75rem] uppercase tracking-wide text-amber-700 font-semibold mb-1">
                     Project · Infinitics 8
                   </p>
                   <p className="text-xs sm:text-sm font-medium text-gray-900">
@@ -263,7 +276,7 @@ export default function Profile({ setActiveTab }) {
                 <button
                   type="button"
                   onClick={() => setActiveTab && setActiveTab('projects')}
-                  className="text-left rounded-2xl border border-primary-100 bg-white/80 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
+                  className="text-left rounded-2xl border border-primary-200 bg-gradient-to-b from-white to-primary-50/70 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
                 >
                   <p className="text-[0.7rem] sm:text-[0.75rem] uppercase tracking-wide text-primary-700 font-semibold mb-1">
                     Project · BayesQuiz
@@ -305,9 +318,9 @@ export default function Profile({ setActiveTab }) {
                 <button
                   type="button"
                   onClick={() => setActiveTab && setActiveTab('leadership')}
-                  className="text-left rounded-2xl border border-primary-100 bg-white/80 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
+                  className="text-left rounded-2xl border border-teal-200 bg-gradient-to-b from-white to-teal-50/70 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
                 >
-                  <p className="text-[0.7rem] sm:text-[0.75rem] uppercase tracking-wide text-primary-700 font-semibold mb-1">
+                  <p className="text-[0.7rem] sm:text-[0.75rem] uppercase tracking-wide text-teal-700 font-semibold mb-1">
                     Leadership · TigaData
                   </p>
                   <p className="text-xs sm:text-sm font-medium text-gray-900">
