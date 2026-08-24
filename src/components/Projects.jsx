@@ -18,7 +18,7 @@ import {
 // warm the chunk (fetch + evaluate) before the modal ever opens.
 const visualizerLoaders = {
   'bayesquiz-sim': () => import('./BayesQuizSimulator'),
-  'tmua-wizzz': () => import('./TMUAStackTracer'),
+  'proofly': () => import('./ProoflyStackTracer'),
   'infinitics-8': () => import('./InfiniticsVisualizer'),
   'imc-prosperity': () => import('./IMCTradingSimulator'),
   'drw-crypto': () => import('./DRWPipelineVisualizer'),
@@ -100,8 +100,8 @@ const projects = [
     ),
   },
   {
-    id: 'tmua-wizzz',
-    title: 'TMUA Wizzz - by TigaData',
+    id: 'proofly',
+    title: 'Proofly - by TigaData',
     description: 'Full-stack TMUA exam-prep platform built solo end to end: a React and Vite frontend, Supabase for the backend and authentication, and Stripe for subscription billing. Owned authentication, subscriptions, and deployment.',
     impact: 'Shipped a complete subscription product single-handedly, from auth to billing to deployment.',
     tags: ['React', 'Supabase', 'Stripe', 'Full-Stack'],
@@ -110,7 +110,7 @@ const projects = [
       <>
         <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Overview</h4>
         <p>
-          TMUA Wizzz is an exam-preparation platform for the Test of Mathematics for University
+          Proofly is an exam-preparation platform for the Test of Mathematics for University
           Admission, built under TigaData. I owned the entire build: frontend, backend, payments,
           and deployment.
         </p>

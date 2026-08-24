@@ -213,21 +213,26 @@ export default function Profile({ setActiveTab }) {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
               <ContentPreview
                 content={
-                  <div className="space-y-2.5">
+                  <div className="flex flex-col gap-2.5 h-full">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">🏆 1st Place</span>
-                      <span className="text-xs text-gray-500">Infinitics 8</span>
+                      <span className="text-xs font-bold bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">🏆 Top 10%</span>
+                      <span className="text-xs text-gray-500">of 18,800 teams</span>
                     </div>
-                    <p className="text-sm font-semibold text-gray-900 leading-snug">Cyber Insurance Pricing</p>
+                    <p className="text-sm font-semibold text-gray-900 leading-snug">IMC Prosperity 4</p>
                     <p className="text-xs text-gray-600 leading-relaxed">
-                      Modelled computer transitions (Susceptible → Infected → Quarantined → Damaged) as a CTMC. Used Monte Carlo simulation to price cyber insurance premiums.
+                      Algorithmic trading across a 50-product simulated market, entered solo. Regression and EMA fair value feeding mean-reversion and market-making logic, with Black-Scholes for the options book.
                     </p>
-                    <div className="flex flex-wrap gap-1 pt-0.5">
-                      {['Stochastic Modelling', 'Actuarial', 'Monte Carlo'].map(tag => (
+                    <div className="flex items-center gap-3 pt-0.5">
+                      <span className="text-xs font-semibold text-gray-800">50 products</span>
+                      <span className="text-gray-400">·</span>
+                      <span className="text-xs font-semibold text-gray-800">Solo entry</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {['Market Making', 'Black-Scholes', 'Mean Reversion'].map(tag => (
                         <span key={tag} className="text-[0.65rem] bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full font-medium">{tag}</span>
                       ))}
                     </div>
-                    <p className="text-[0.65rem] text-gray-500 pt-1 border-t border-gray-100">Click to see full details →</p>
+                    <p className="mt-auto text-[0.65rem] text-gray-500 pt-1 border-t border-gray-100">Click to see full details →</p>
                   </div>
                 }
               >
@@ -237,20 +242,20 @@ export default function Profile({ setActiveTab }) {
                   className="text-left rounded-2xl border border-amber-200 bg-gradient-to-b from-white to-amber-50/70 px-3 py-3 sm:px-4 sm:py-3 shadow-sm hover:shadow-md transition-shadow w-full"
                 >
                   <p className="text-[0.7rem] sm:text-[0.75rem] uppercase tracking-wide text-amber-700 font-semibold mb-1">
-                    Project · Infinitics 8
+                    Project · IMC Prosperity 4
                   </p>
                   <p className="text-xs sm:text-sm font-medium text-gray-900">
-                    1st place cyber insurance pricing model
+                    Top 10% finish among 18,800 teams
                   </p>
                   <p className="text-[0.7rem] sm:text-xs text-gray-500 mt-1">
-                    CTMC-based pricing + scholarship offer
+                    Solo entry across a 50-product market
                   </p>
                 </button>
               </ContentPreview>
 
               <ContentPreview
                 content={
-                  <div className="space-y-2.5">
+                  <div className="flex flex-col gap-2.5 h-full">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">EdTech</span>
                       <span className="text-xs text-gray-500">by TigaData</span>
@@ -269,7 +274,7 @@ export default function Profile({ setActiveTab }) {
                         <span key={tag} className="text-[0.65rem] bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full font-medium">{tag}</span>
                       ))}
                     </div>
-                    <p className="text-[0.65rem] text-gray-500 pt-1 border-t border-gray-100">Click to see full details →</p>
+                    <p className="mt-auto text-[0.65rem] text-gray-500 pt-1 border-t border-gray-100">Click to see full details →</p>
                   </div>
                 }
               >
@@ -292,7 +297,7 @@ export default function Profile({ setActiveTab }) {
 
               <ContentPreview
                 content={
-                  <div className="space-y-2.5">
+                  <div className="flex flex-col gap-2.5 h-full">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded-full">Non-profit</span>
                       <span className="text-xs text-gray-500">Founder</span>
@@ -311,7 +316,7 @@ export default function Profile({ setActiveTab }) {
                         <span key={tag} className="text-[0.65rem] bg-primary-50 text-primary-700 px-2 py-0.5 rounded-full font-medium">{tag}</span>
                       ))}
                     </div>
-                    <p className="text-[0.65rem] text-gray-500 pt-1 border-t border-gray-100">Click to see full details →</p>
+                    <p className="mt-auto text-[0.65rem] text-gray-500 pt-1 border-t border-gray-100">Click to see full details →</p>
                   </div>
                 }
               >

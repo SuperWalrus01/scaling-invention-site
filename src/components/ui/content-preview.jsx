@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
  * openDelay=0 for instant reveal, closeDelay=150 so moving into the popup
  * content doesn't cause a flicker.
  */
-export const ContentPreview = ({ children, content, width = 320 }) => {
+export const ContentPreview = ({ children, content, width = 320, height = 280 }) => {
   return (
     <HoverCardPrimitive.Root openDelay={0} closeDelay={150}>
       <HoverCardPrimitive.Trigger asChild>
@@ -26,9 +26,9 @@ export const ContentPreview = ({ children, content, width = 320 }) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.16 }}
           className="shadow-xl rounded-2xl"
-          style={{ width }}
+          style={{ width, height }}
         >
-          <div className="bg-white border border-neutral-100 rounded-2xl p-4 text-left">
+          <div className="h-full bg-white border border-neutral-100 rounded-2xl p-4 text-left">
             {content}
           </div>
         </motion.div>

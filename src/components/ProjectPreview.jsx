@@ -220,7 +220,7 @@ const previews = {
     ),
   },
 
-  'tmua-wizzz': {
+  'proofly': {
     stretch: false,
     art: (
       <>

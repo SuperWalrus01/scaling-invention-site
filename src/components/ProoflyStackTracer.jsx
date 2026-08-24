@@ -54,7 +54,7 @@ const FLOWS = [
   },
 ];
 
-export default function TMUAStackTracer() {
+export default function ProoflyStackTracer() {
   const [flowId, setFlowId] = useState('subscribe');
   const [hopIndex, setHopIndex] = useState(-1);
   const timers = useRef([]);
@@ -96,7 +96,7 @@ export default function TMUAStackTracer() {
     >
       <div className="mb-3">
         <p className="text-xs font-semibold tracking-wide text-violet-300/90 uppercase mb-1">
-          TMUA Wizzz Visual
+          Proofly Visual
         </p>
         <h4 className="text-base sm:text-lg font-semibold text-slate-50">
           Trace a request through the stack

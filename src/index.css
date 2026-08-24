@@ -142,6 +142,18 @@
   animation-delay: 4s;
 }
 
+/* Splash name decode: a letter locking in gets a small scale settle only —
+   never opacity — so a resolving letter never dips toward invisible next to
+   ones still cycling through symbols at full opacity. */
+@keyframes decode-settle {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
+.decode-settle {
+  animation: decode-settle 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* Respect users who ask for less motion */
 @media (prefers-reduced-motion: reduce) {
   html {

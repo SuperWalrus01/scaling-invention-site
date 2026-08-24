@@ -29,6 +29,14 @@
 - **BayesQuiz (by TigaData).** Educational quiz platform that uses Bayesian inference to update
   question-difficulty estimates as students answer. Built with React and Firebase. 70+ quizzes and
   400+ student accounts.
+- **IMC Prosperity 4 — algorithmic trading (top 10% of 18,800 teams, solo entry).** Built trading
+  models across a 50-product simulated market, combining linear regression and EMA-based fair value
+  forecasting with mean-reversion and market-making logic, and pricing options positions with
+  Black-Scholes. Applied game-theoretic bid optimisation in the manual auction rounds.
+- **Proofly (by TigaData).** Full-stack exam-preparation platform for the TMUA (Test of Mathematics
+  for University Admission), built solo end to end: React and Vite frontend, Supabase for the
+  database, row-level security and authentication, and Stripe for subscription billing. Owned
+  authentication, subscriptions, and deployment.
 - **Diabetes Prediction.** Benchmarking study of supervised learning algorithms for predicting
   diabetes onset from clinical measurements, comparing logistic regression, decision trees, random
   forests, SVMs, and gradient boosting under cross-validation, with feature-importance analysis.
