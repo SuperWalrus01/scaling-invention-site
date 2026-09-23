@@ -90,6 +90,13 @@ const NODE_X = STATES.map((_, i) => 60 + (i * (W - 140)) / (STATES.length - 1));
 
 const BARS = [26, 38, 47, 58, 44];
 
+// LaTeX typed on the left, the Unicode it becomes on the right.
+const CONVERSIONS = [
+  { tex: '\\alpha', out: 'α' },
+  { tex: 'x^2', out: 'x²' },
+  { tex: '\\mathbb{R}', out: 'ℝ' },
+];
+
 const previews = {
   'bayesquiz-sim': {
     stretch: true,
@@ -225,22 +232,55 @@ const previews = {
     art: (
       <>
         {STACK.map((tier, i) => {
-          const h = 17;
+          const h = 15;
           const gap = 4;
-          const y = 7 + i * (h + gap);
-          const inset = 40 + i * 26;
+          // Centre the stack vertically in the strip.
+          const top = (H - (STACK.length * h + (STACK.length - 1) * gap)) / 2;
+          const y = top + i * (h + gap);
+          const inset = 70 + i * 26;
           return (
             <g key={tier.label}>
               <rect x={inset} y={y} width={W - inset * 2} height={h} rx={h / 2} fill={tier.fill} />
               <text
                 x={W / 2}
-                y={y + 12.5}
+                y={y + h / 2 + 3.5}
                 textAnchor="middle"
-                fontSize="11"
+                fontSize="10"
                 fontWeight="600"
                 fill={tier.text}
               >
                 {tier.label}
+              </text>
+            </g>
+          );
+        })}
+      </>
+    ),
+  },
+
+  'latex-squiggly': {
+    stretch: false,
+    art: (
+      <>
+        {CONVERSIONS.map(({ tex, out }, i) => {
+          const cw = 136;
+          const gap = (W - 40 - CONVERSIONS.length * cw) / (CONVERSIONS.length - 1);
+          const x = 20 + i * (cw + gap);
+          return (
+            <g key={tex}>
+              <rect x={x} y="19" width={cw} height="34" rx="17" fill="#e0f2fe" />
+              <text x={x + cw / 2} y="40.5" textAnchor="middle" fontSize="13">
+                <tspan
+                  fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
+                  fontSize="12"
+                  fill="#0284c7"
+                >
+                  {tex}
+                </tspan>
+                <tspan dx="7" fill="#7dd3fc">→</tspan>
+                <tspan dx="7" fontSize="15" fontWeight="700" fill="#0369a1">
+                  {out}
+                </tspan>
               </text>
             </g>
           );

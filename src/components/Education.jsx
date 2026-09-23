@@ -20,7 +20,7 @@ const education = [
     id: 'warwick-bsc',
     school: 'University of Warwick',
     qualification: 'BSc Mathematics and Statistics',
-    period: '2026 – 2029',
+    period: 'September 2026 – June 2029',
     logo: WarwickLogo,
     logoAlt: 'University of Warwick logo',
     current: true,

@@ -12,7 +12,7 @@
 
 ## Education
 
-- **University of Warwick — BSc Mathematics and Statistics** (2026–2029, current).
+- **University of Warwick — BSc Mathematics and Statistics** (September 2026 – June 2029, current).
   Awarded the Global Excellence Scholarship.
 - **University of Warwick — Foundation in Mathematics & Statistics** (September 2025 – June 2026).
   Overall grade 93. Global Excellence Scholarship.
@@ -37,6 +37,14 @@
   for University Admission), built solo end to end: React and Vite frontend, Supabase for the
   database, row-level security and authentication, and Stripe for subscription billing. Owned
   authentication, subscriptions, and deployment.
+- **LaTeX Squiggly.** A macOS menu bar app, Windows tray app and Chrome extension that turns LaTeX
+  into Unicode as you type, in any app (`\alpha` then space becomes α). Covers 202 symbols plus
+  superscripts, subscripts, fractions, roots and binomials, and stays quiet in TeX editors, code
+  editors and terminals. The conversion engine is written in Swift; the C# and JavaScript ports
+  generate their symbol tables from it, and all three are checked against the same 2,030 test
+  fragments. Source: https://github.com/SuperWalrus01/LaTeX-Squiggly; downloads:
+  https://github.com/SuperWalrus01/LaTeX-Squiggly/releases; live demo:
+  https://superwalrus01.github.io/LaTeX-Squiggly/
 - **Diabetes Prediction.** Benchmarking study of supervised learning algorithms for predicting
   diabetes onset from clinical measurements, comparing logistic regression, decision trees, random
   forests, SVMs, and gradient boosting under cross-validation, with feature-importance analysis.

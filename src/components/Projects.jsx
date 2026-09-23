@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Award, Info, Github } from 'lucide-react';
+import { ExternalLink, Award, Info, Github, Download, Puzzle } from 'lucide-react';
 import { lazy, Suspense, useEffect } from 'react';
 import Section from './Section';
 import ProjectPreview from './ProjectPreview';
@@ -17,6 +17,7 @@ import {
 // Loaders are kept separate from the lazy components so a hover or press can
 // warm the chunk (fetch + evaluate) before the modal ever opens.
 const visualizerLoaders = {
+  'latex-squiggly': () => import('./LatexSquigglyDemo'),
   'bayesquiz-sim': () => import('./BayesQuizSimulator'),
   'proofly': () => import('./ProoflyStackTracer'),
   'infinitics-8': () => import('./InfiniticsVisualizer'),
@@ -55,6 +56,94 @@ const warmAllVisualizers = () => {
 };
 
 const projects = [
+  {
+    id: 'latex-squiggly',
+    title: 'LaTeX Squiggly',
+    logo: '/images/latex-squiggly-mark.png',
+    description: 'A macOS, Windows and Chrome tool that turns LaTeX into Unicode as you type. Type \\alpha, press space, and it becomes α in any app, as real text rather than an image. Covers 202 symbols plus superscripts, subscripts, fractions, roots and binomials.',
+    impact: 'One Swift engine ported to C# and JavaScript, with all three checked against the same 2,030 test fragments.',
+    tags: ['Swift', 'C# / .NET', 'Chrome Extension', 'Cross-Platform'],
+    github: 'https://github.com/SuperWalrus01/LaTeX-Squiggly',
+    download: 'https://github.com/SuperWalrus01/LaTeX-Squiggly/releases',
+    // Awaiting Chrome Web Store approval: set the listing URL here to enable the button.
+    chromeStore: null,
+    details: (
+      <>
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Overview</h4>
+        <p>
+          You can't paste LaTeX into Slack, an email subject or a comment box. LaTeX Squiggly lets
+          you type it anyway: type <code>\alpha</code> and press space, and the letters you just
+          typed become α, right where you typed them. <code>$x^2$</code> becomes x²,{' '}
+          <code>\frac{'{3}{7}'}</code> becomes ³⁄₇, and <code>\mathbb{'{R}'}</code> becomes ℝ. The
+          result is ordinary Unicode, so it survives copy and paste into anything. It runs as a
+          menu bar app on macOS, a tray app on Windows and a Chrome extension.
+        </p>
+
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">Design principles</h4>
+        <ul className="list-disc pl-4 space-y-1">
+          <li>
+            Never corrupt text. In a .tex file or on Overleaf, <code>\alpha</code> has to stay{' '}
+            <code>\alpha</code>, so it stays quiet in TeX editors, code editors, terminals and
+            LaTeX websites, and on ordinary typing that happens to contain a backslash, like a
+            Windows file path.
+          </li>
+          <li>
+            Be honest. When something has no exact Unicode form, it either uses a clearly flagged
+            approximation or leaves the text as typed and explains why. It never produces a
+            half-converted result.
+          </li>
+        </ul>
+
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">Engineering</h4>
+        <ul className="list-disc pl-4 space-y-1">
+          <li>
+            One engine, three platforms, checked to agree. The conversion engine is written in
+            Swift; the Windows (C#) and Chrome (JavaScript) versions are ports whose symbol tables
+            are generated from the Swift engine. All three must give identical answers on the same
+            2,030 test fragments, down to how many characters to delete.
+          </li>
+          <li>
+            System-level text replacement: an event tap and the Accessibility API on macOS, and a
+            low-level keyboard hook on a dedicated thread on Windows, so it can never slow down
+            typing across the system.
+          </li>
+          <li>
+            Safe replacement in the browser. The extension confirms the text in front of the cursor
+            matches what was typed before deleting anything, and works in plain text boxes and in
+            rich editors built on ProseMirror, Lexical and Quill.
+          </li>
+          <li>
+            Private by design. It keeps only the last few keystrokes, in memory, and clears them on
+            every click. None of the three versions makes a network request.
+          </li>
+        </ul>
+
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">Try it</h4>
+        <p>
+          The{' '}
+          <a
+            href="https://superwalrus01.github.io/LaTeX-Squiggly/#try"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-700 underline underline-offset-2 hover:text-primary-800"
+          >
+            project website
+          </a>{' '}
+          has a live demo that behaves exactly like the app, with nothing to install. Downloads for
+          macOS and Windows are on the{' '}
+          <a
+            href="https://github.com/SuperWalrus01/LaTeX-Squiggly/releases"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-700 underline underline-offset-2 hover:text-primary-800"
+          >
+            GitHub releases page
+          </a>
+          .
+        </p>
+      </>
+    ),
+  },
   {
     id: 'bayesquiz-sim',
     title: 'BayesQuiz - by TigaData',
@@ -346,6 +435,9 @@ const projects = [
   },
 ];
 
+const outlineButton =
+  'inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 bg-white/70 rounded-full text-sm font-medium hover:bg-white hover:border-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
+
 function VisualizerSkeleton() {
   return (
     <div
@@ -382,7 +474,7 @@ export default function Projects() {
               key={project.id}
               variants={riseIn}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="surface rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-lg hover:shadow-2xl transition-shadow relative overflow-hidden group"
+              className="surface rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-lg hover:shadow-2xl transition-shadow relative overflow-hidden group flex flex-col"
             >
               <div className="-mx-5 sm:-mx-6 -mt-5 sm:-mt-6 mb-4 rounded-t-2xl sm:rounded-t-3xl overflow-hidden bg-gradient-to-b from-primary-50/70 to-transparent">
                 <ProjectPreview id={project.id} />
@@ -390,6 +482,29 @@ export default function Projects() {
 
               <div className="flex items-start justify-between gap-3 mb-1.5 sm:mb-2.5">
                 <h3 className="text-lg sm:text-xl font-semibold">{project.title}</h3>
+                {'chromeStore' in project &&
+                  (project.chromeStore ? (
+                    <a
+                      href={project.chromeStore}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 px-2.5 py-1 border border-gray-300 text-gray-700 bg-white/70 rounded-full text-[0.7rem] font-semibold hover:bg-white hover:border-gray-400 transition-colors"
+                    >
+                      <Puzzle className="w-3.5 h-3.5" aria-hidden="true" />
+                      Chrome Web Store
+                    </a>
+                  ) : (
+                    <span
+                      className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 pl-2.5 pr-1 py-1 border border-dashed border-gray-300 text-gray-400 bg-white/40 rounded-full text-[0.7rem] font-semibold cursor-not-allowed select-none"
+                      title="Awaiting Chrome Web Store approval"
+                    >
+                      <Puzzle className="w-3.5 h-3.5" aria-hidden="true" />
+                      Chrome Web Store
+                      <span className="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[0.6rem]">
+                        Pending
+                      </span>
+                    </span>
+                  ))}
                 {project.award && (
                   <span className="shrink-0 mt-0.5 inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 bg-yellow-400 text-yellow-900 rounded-full text-[0.7rem] font-bold shadow-sm">
                     <Award className="w-3.5 h-3.5" aria-hidden="true" />
@@ -419,7 +534,7 @@ export default function Projects() {
                 ))}
               </div>
 
-              <div className="flex gap-2">
+              <div className="mt-auto flex flex-wrap gap-2">
                 {/* More Details modal */}
                 <Modal>
                   <ModalTrigger
@@ -433,7 +548,12 @@ export default function Projects() {
                   </ModalTrigger>
                   <ModalBody className="md:max-w-[65%] max-h-[85%]">
                     <ModalContent className="overflow-y-auto">
-                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">{project.title}</h3>
+                      <h3 className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-gray-900 mb-4">
+                        {project.logo && (
+                          <img src={project.logo} alt="" width="32" height="32" className="w-8 h-8 shrink-0" />
+                        )}
+                        {project.title}
+                      </h3>
                       <div className="text-sm sm:text-base text-gray-700 leading-relaxed">
                         {project.details}
                       </div>
@@ -457,9 +577,20 @@ export default function Projects() {
                   </ModalBody>
                 </Modal>
 
-                {/* GitHub modal */}
+                {project.github !== '#' ? (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={outlineButton}
+                  >
+                    GitHub
+                    <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                  </a>
+                ) : (
+                /* GitHub modal */
                 <Modal>
-                  <ModalTrigger className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 bg-white/70 rounded-full text-sm font-medium hover:bg-white hover:border-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+                  <ModalTrigger className={outlineButton}>
                     GitHub
                     <ExternalLink className="w-4 h-4" aria-hidden="true" />
                   </ModalTrigger>
@@ -482,6 +613,20 @@ export default function Projects() {
                     </ModalFooter>
                   </ModalBody>
                 </Modal>
+                )}
+
+                {project.download && (
+                  <a
+                    href={project.download}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={outlineButton}
+                  >
+                    <Download className="w-4 h-4" aria-hidden="true" />
+                    Download
+                  </a>
+                )}
+
               </div>
 
               {/* Gradient overlay on hover */}
