@@ -65,8 +65,7 @@ const projects = [
     tags: ['Swift', 'C# / .NET', 'Chrome Extension', 'Cross-Platform'],
     github: 'https://github.com/SuperWalrus01/LaTeX-Squiggly',
     download: 'https://github.com/SuperWalrus01/LaTeX-Squiggly/releases',
-    // Awaiting Chrome Web Store approval: set the listing URL here to enable the button.
-    chromeStore: null,
+    chromeStore: 'https://chromewebstore.google.com/detail/ojpadebobipacpolocdfolelplfinanb',
     details: (
       <>
         <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-1">Overview</h4>
@@ -138,6 +137,15 @@ const projects = [
             className="text-primary-700 underline underline-offset-2 hover:text-primary-800"
           >
             GitHub releases page
+          </a>
+          , and the Chrome extension is on the{' '}
+          <a
+            href="https://chromewebstore.google.com/detail/ojpadebobipacpolocdfolelplfinanb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-700 underline underline-offset-2 hover:text-primary-800"
+          >
+            Chrome Web Store
           </a>
           .
         </p>

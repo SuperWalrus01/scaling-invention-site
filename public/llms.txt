@@ -43,7 +43,8 @@
   editors and terminals. The conversion engine is written in Swift; the C# and JavaScript ports
   generate their symbol tables from it, and all three are checked against the same 2,030 test
   fragments. Source: https://github.com/SuperWalrus01/LaTeX-Squiggly; downloads:
-  https://github.com/SuperWalrus01/LaTeX-Squiggly/releases; live demo:
+  https://github.com/SuperWalrus01/LaTeX-Squiggly/releases; Chrome Web Store:
+  https://chromewebstore.google.com/detail/ojpadebobipacpolocdfolelplfinanb; live demo:
   https://superwalrus01.github.io/LaTeX-Squiggly/
 - **Diabetes Prediction.** Benchmarking study of supervised learning algorithms for predicting
   diabetes onset from clinical measurements, comparing logistic regression, decision trees, random
