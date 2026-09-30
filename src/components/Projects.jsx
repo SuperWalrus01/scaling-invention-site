@@ -117,6 +117,19 @@ const projects = [
           </li>
         </ul>
 
+        <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">In use</h4>
+        <video
+          className="w-full aspect-video rounded-xl bg-gray-900 shadow-sm"
+          src="/videos/latex-squiggly-demo.mp4"
+          poster="/videos/latex-squiggly-demo-poster.jpg"
+          controls
+          playsInline
+          preload="metadata"
+        >
+          Your browser can't play this video.{' '}
+          <a href="/videos/latex-squiggly-demo.mp4">Download it instead</a>.
+        </video>
+
         <h4 className="text-sm sm:text-base font-semibold text-gray-900 mt-3 mb-1">Try it</h4>
         <p>
           The{' '}

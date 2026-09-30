@@ -18,6 +18,10 @@ echo "🖼️ Syncing static images..."
 mkdir -p images
 cp -R public/images/* images/
 
+echo "🎬 Syncing videos..."
+mkdir -p videos
+cp -R public/videos/* videos/
+
 echo "📄 Copying PWA files (manifest & service worker)..."
 cp dist/manifest.webmanifest manifest.webmanifest 2>/dev/null || true
 cp dist/sw.js sw.js 2>/dev/null || true
